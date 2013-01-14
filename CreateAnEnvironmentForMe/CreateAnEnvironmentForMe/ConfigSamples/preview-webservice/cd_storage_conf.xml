@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration Version="7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schemas/cd_storage_conf.xsd">
+  <Global>
+    <ObjectCache Enabled="false">
+      <Policy Type="LRU" Class="com.tridion.cache.LRUPolicy">
+        <Param Name="MemSize" Value="16mb" />
+      </Policy>
+      <Features>
+        <Feature Type="DependencyTracker" Class="com.tridion.cache.DependencyTracker" />
+      </Features>
+    </ObjectCache>
+    <Storages>
+      <StorageBindings>
+        <Bundle src="preview_dao_bundle.xml"/>
+      </StorageBindings>
+
+      <Wrappers>
+        <Wrapper Name="SessionWrapper">
+          <Storage Type="persistence" Id="sessionDb" dialect="MSSQL" Class="com.tridion.storage.persistence.JPADAOFactory">
+            <Pool Type="jdbc" Size="5" MonitorInterval="60" IdleTimeout="120" CheckoutTimeout="120" />
+            <DataSource Class="com.microsoft.sqlserver.jdbc.SQLServerDataSource">
+              <Property Name="serverName" Value="localhost" />
+              <Property Name="portNumber" Value="1433" />
+              <Property Name="databaseName" Value="##SESSION_PREVIEW_DATABASE_NAME##"/>
+              <Property Name="user" Value="##SESSION_PREVIEW_USER_NAME##"/>
+              <Property Name="password" Value="##SESSION_PREVIEW_PASSWORD##"/>
+            </DataSource>
+          </Storage>
+        </Wrapper>
+      </Wrappers>
+
+      <Storage Type="persistence" Id="sqlserver" dialect="MSSQL" Class="com.tridion.storage.persistence.JPADAOFactory">
+        <Pool Type="jdbc" Size="5" MonitorInterval="60" IdleTimeout="120" CheckoutTimeout="120" />
+        <DataSource Class="com.microsoft.sqlserver.jdbc.SQLServerDataSource">
+          <Property Name="serverName" Value="localhost" />
+          <Property Name="portNumber" Value="1433" />
+          <Property Name="databaseName" Value="##DATABASE_NAME##" />
+          <Property Name="user" Value="##USER_NAME##" />
+          <Property Name="password" Value="##PASSWORD##" />
+        </DataSource>
+      </Storage>
+      <Storage Type="filesystem" Class="com.tridion.storage.filesystem.FSDAOFactory" Id="filesystem">
+        <Root Path="##ROOT_PATH##" />
+      </Storage>
+    </Storages>
+  </Global>
+  <ItemTypes defaultStorageId="sqlserver" cached="false">
+  </ItemTypes>
+  <License Location="c:/Program Files (x86)/Tridion/config/cd_licenses.xml" />
+</Configuration>

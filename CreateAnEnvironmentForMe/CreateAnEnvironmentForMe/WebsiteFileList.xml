@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Files>
+  <Folder source="D:\Software">
+    <File target="lib">sqljdbc4.jar</File>
+  </Folder>
+  <Webapps>
+    <Webapp role="upload" language="Aspnet">
+      <File>D:\Software\Tridion 2013 Build 830\Content Delivery\roles\upload\dotNET\webapp\x86_64\upload.zip</File>
+    </Webapp>
+    <Webapp role="upload" language="Jsp">
+      <File>D:\Software\Tridion 2013 Build 830\Content Delivery\roles\upload\java\cd_upload.war</File>
+    </Webapp>
+    <Webapp role="preview-web" language="Aspnet">
+      <File>D:\Software\Tridion 2013 Build 830\Content Delivery\roles\preview\web\dotNet\webapp\x86_64.zip</File>
+    </Webapp>
+    <Webapp role="preview-webservice" language="Aspnet">
+      <File>D:\Software\Tridion 2013 Build 830\Content Delivery\roles\preview\webservice\dotNET\webapp\x86_64.zip</File>
+    </Webapp>
+    <Webapp role="preview-web" language="Jsp">
+      <File>D:\Software\Tridion 2013 Build 830\Content Delivery\roles\preview\web\java\webapp\cd_preview_web.war</File>
+    </Webapp>
+    <Webapp role="preview-webservice" language="Jsp">
+      <File>D:\Software\Tridion 2013 Build 830\Content Delivery\roles\preview\webservice\java\webapp\cd_preview_webservice.war</File>
+    </Webapp>
+  </Webapps>
+
+  <!--
+  <Folder source="D:\Software\Tridion 2013 Build 830\Content Delivery\roles\upload\dotNET\x86_64">
+    <File target="bin" language="Aspnet">netrtsn.dll</File>
+    <File target="bin" language="Aspnet">Tridion.ContentDelivery.Configuration.dll</File>
+    <File target="bin" language="Aspnet">Tridion.ContentDelivery.dll</File>
+    <File target="bin" language="Aspnet">Tridion.ContentDelivery.Interop.dll</File>
+    <File target="bin" language="Aspnet">xmogrt.dll</File>
+  </Folder>
+  <Folder source="D:\Software\Tridion 2013 Build 830\Content Delivery\roles\upload\dotNET">
+    <File target="root" role="deployer" language="Aspnet">HTTPUpload.aspx</File>
+  </Folder>
+  <Folder source="D:\Software\Tridion 2013 Build 830\Content Delivery\roles\upload\java\lib">
+    <File target="lib">cd_broker.jar</File>
+    <File target="lib">cd_cache.jar</File>
+    <File target="lib">cd_core.jar</File>
+    <File target="lib">cd_datalayer.jar</File>-->
+  <!-- Including cd_deployer.jar on all roles since it may be needed for TCDL transformations -->
+  <!--
+    <File target="lib">cd_deployer.jar</File>
+    <File target="lib">cd_linking.jar</File>
+    <File target="lib">cd_model.jar</File>
+    <File target="lib">cd_tcdl.jar</File>
+    <File target="lib" role="deployer">cd_undo.jar</File>
+    <File target="lib">cd_upload.jar</File> -->
+  <!-- cd_wrapper.jar is _probably_ not needed for a deployer -->
+  <!--
+    <File target="lib" role="staging,webservice">cd_wrapper.jar</File>
+  </Folder>
+  <Folder source="D:\Software\Tridion 2013 Build 830\Content Delivery\roles\upload\java\third-party-lib">
+    <File target="lib">activation.jar</File>
+    <File target="lib">antlr.jar</File>
+    <File target="lib">aopalliance.jar</File>
+    <File target="lib">commons-collections.jar</File>
+    <File target="lib">commons-dbcp.jar</File>
+    <File target="lib">commons-fileupload.jar</File>
+    <File target="lib">commons-io.jar</File>
+    <File target="lib">commons-pool.jar</File>
+    <File target="lib">dom4j.jar</File>
+    <File target="lib">easylicense.jar</File>
+    <File target="lib">hibernate-commons-annotations.jar</File>
+    <File target="lib">hibernate-core.jar</File>
+    <File target="lib">hibernate-entitymanager.jar</File>
+    <File target="lib">hibernate-jpa-2.0-api.jar</File>
+    <File target="lib">javassist.jar</File>
+    <File target="lib">jaxb-api.jar</File>
+    <File target="lib">jaxb-impl.jar</File>
+    <File target="lib">jboss-logging.jar</File>
+    <File target="lib">jboss-transaction-api_1.1_spec.jar</File>
+    <File target="lib">jcl-over-slf4j.jar</File>
+    <File target="lib">jdbcpool.jar</File>
+    <File target="lib">logback-classic.jar</File>
+    <File target="lib">logback-core.jar</File>
+    <File target="lib">serializer.jar</File>
+    <File target="lib">slf4j-api.jar</File>
+    <File target="lib">spring-aop.jar</File>
+    <File target="lib">spring-asm.jar</File>
+    <File target="lib">spring-beans.jar</File>
+    <File target="lib">spring-context-support.jar</File>
+    <File target="lib">spring-context.jar</File>
+    <File target="lib">spring-core.jar</File>
+    <File target="lib">spring-expression.jar</File>
+    <File target="lib">spring-jdbc.jar</File>
+    <File target="lib">spring-orm.jar</File>
+    <File target="lib">spring-tx.jar</File>
+    <File target="lib">stax-api.jar</File>
+    <File target="lib">xalan.jar</File>
+  </Folder>
+  <Folder source="D:\Software\Tridion 2013 Build 830\Content Delivery\resources\schemas">
+    <File target="schemas">cd_ambient_cartridge_conf.xsd</File>
+    <File target="schemas">cd_ambient_conf.xsd</File>
+    <File target="schemas">cd_broker_conf.xsd</File>
+    <File target="schemas">cd_deployer_conf.xsd</File>
+    <File target="schemas">cd_dynamic_conf.xsd</File>
+    <File target="schemas">cd_instances_conf.xsd</File>
+    <File target="schemas">cd_link_conf.xsd</File>
+    <File target="schemas">cd_monitor_conf.xsd</File>
+    <File target="schemas">cd_storage_conf.xsd</File>
+    <File target="schemas">cd_storage_dao_bundle.xsd</File>
+    <File target="schemas">cd_transport_conf.xsd</File>
+    <File target="schemas">cd_ugc_conf.xsd</File>
+    <File target="schemas">cd_wai_conf.xsd</File>
+    <File target="schemas">cd_webservice_conf.xsd</File>
+  </Folder>
+  <Folder source="D:\Software\Tridion 2013 Build 830\Content Delivery\roles\preview\web\configuration\web">
+    <File target="root" role="preview" language="Aspnet">Web.config</File>
+    <File target="bin" role="preview" language="Jsp">web.xml</File>
+  </Folder>
+  <Folder source="D:\Software\Tridion 2013 Build 830\Content Delivery\roles\preview\web\configuration\web">
+    <File target="root" role="webservice" language="Aspnet">Web.config</File>
+    <File target="bin" role="webservice" language="Jsp">web.xml</File>
+  </Folder>
+  <Folder source="D:\Software\Tridion 2013 Build 830\Content Delivery\roles\preview\web\dotNet\x86_64">
+    <File target="bin" role="preview" language="Aspnet">Tridion.ContentDelivery.AmbientData.dll</File>
+    <File target="bin" role="preview" language="Aspnet">Tridion.ContentDelivery.Preview.dll</File>
+  </Folder>
+  <Folder source="D:\Software\Tridion 2013 Build 830\Content Delivery\roles\preview\web\java\lib">
+    <File target="lib" role="preview">cd_preview_ambient.jar</File>
+    <File target="lib" role="preview">cd_preview_web.jar</File>
+    <File target="lib" role="preview">cd_session.jar</File>
+  </Folder>
+-->
+  <!-- WEB.XML FOR DEPLOYER -->
+  <!--
+  <Folder source="D:\Temp">
+    <File target="bin" role="deployer" language="Jsp">web.xml</File>
+  </Folder>-->
+</Files>
