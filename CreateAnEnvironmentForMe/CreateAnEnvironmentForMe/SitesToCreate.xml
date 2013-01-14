@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sites>
+  
+  <Site>
+    <Name>Staging Deployer</Name>
+    <Root>c:\inetpub\staging\deployer</Root>
+    <Role>upload</Role>
+    <Port>90</Port>
+    <Language>.NET</Language>
+    <Storage>
+      <Name>TridionBrokerStaging</Name>
+      <UserName>TridionBrokerUser</UserName>
+      <Password>tridion</Password>
+      <RootPath>c:\inetpub\staging\website</RootPath>
+    </Storage>
+  </Site>
+  
+  <Site>
+    <Name>Staging Website</Name>
+    <Root>c:\inetpub\staging\website</Root>
+    <Role>preview-web</Role>
+    <Port>81</Port>
+    <Language>.NET</Language>
+    <Storage>
+      <Name>TridionBrokerStaging</Name>
+      <UserName>TridionBrokerUser</UserName>
+      <Password>tridion</Password>
+      <RootPath>c:\inetpub\staging\website</RootPath>
+      <SessionPreview>
+        <Name>TridionSessionPreview</Name>
+        <UserName>TridionBrokerUser</UserName>
+        <Password>tridion</Password>
+      </SessionPreview>
+    </Storage>
+  </Site>
+  <Site>
+    <Name>Preview WebService</Name>
+    <Root>c:\inetpub\staging\webservice</Root>
+    <Role>preview-webservice</Role>
+    <Port>99</Port>
+    <Language>.NET</Language>
+    <Storage>
+      <Name>TridionSessionPreview</Name>
+      <UserName>TridionBrokerUser</UserName>
+      <Password>tridion</Password>
+      <SessionPreview>
+        <Name>TridionSessionPreview</Name>
+        <UserName>TridionBrokerUser</UserName>
+        <Password>tridion</Password>
+      </SessionPreview>
+    </Storage>
+  </Site>
+
+  <!--<Site>
+    <Name>Tomcat Staging Deployer</Name>
+    <Root>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\staging-upload</Root>
+    <Role>upload</Role>
+    <Port>8080</Port>
+    <ContextRoot>staging-upload</ContextRoot>
+    <Language>Jsp</Language>
+    <Storage>
+      <Name>TridionBrokerStaging</Name>
+      <UserName>TridionBrokerUser</UserName>
+      <Password>tridion</Password>
+      <RootPath>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\staging</RootPath>
+    </Storage>
+  </Site>
+  <Site>
+    <Name>Tomcat Staging Website</Name>
+    <Root>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\staging</Root>
+    <Role>preview</Role>
+    <Port>8080</Port>
+    <Language>Jsp</Language>
+    <Storage>
+      <Name>TridionBrokerStaging</Name>
+      <UserName>TridionBrokerUser</UserName>
+      <Password>tridion</Password>
+      <RootPath>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\staging</RootPath>
+      <SessionPreview>
+        <Name>TridionSessionPreview</Name>
+        <UserName>TridionBrokerUser</UserName>
+        <Password>tridion</Password>
+      </SessionPreview>
+    </Storage>
+  </Site>
+    <Site>
+    <Name>Tomcat Live Deployer</Name>
+    <Root>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\live-upload</Root>
+    <Role>upload</Role>
+    <Port>8080</Port>
+    <ContextRoot>live-upload</ContextRoot>
+    <Language>Jsp</Language>
+    <Storage>
+      <Name>TridionBrokerStaging</Name>
+      <UserName>TridionBrokerUser</UserName>
+      <Password>tridion</Password>
+      <RootPath>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\live</RootPath>
+    </Storage>
+  </Site>
+  <Site>
+    <Name>Tomcat Live Website</Name>
+    <Root>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\live</Root>
+    <Role>website</Role>
+    <Port>8080</Port>
+    <Language>Jsp</Language>
+    <Storage>
+      <Name>TridionBrokerLive</Name>
+      <UserName>TridionBrokerUser</UserName>
+      <Password>tridion</Password>
+      <RootPath>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\live</RootPath>
+    </Storage>
+  </Site>
+  <Site>
+    <Name>One more deployer</Name>
+    <Root>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\testdeployer</Root>
+    <Role>upload</Role>
+    <Port>8080</Port>
+    <ContextRoot>testdeployer</ContextRoot>
+    <Language>Jsp</Language>
+    <Storage>
+      <Name>TridionBrokerLive</Name>
+      <UserName>TridionBrokerUser</UserName>
+      <Password>tridion</Password>
+      <RootPath>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\testdeployer</RootPath>
+    </Storage>
+  </Site> -->
+</Sites>

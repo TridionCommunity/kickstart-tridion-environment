@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- The Tridion WAI configuration specifies all configuration values to
+ enable the Personalisation and Profiling functionality.       -->
+<Configuration Version="7.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="schemas/cd_wai_conf.xsd">
+  <!-- The Global section specifies configuration details that apply to all functionality. -->
+  <Global>
+    <!--
+		Specify RMI listening port
+		-->
+    <!--
+		<RMIChannel ListenerPort="1050"/>
+		-->
+  </Global>
+  <!-- The Presentations element contains a list of all Presentations. -->
+  <Presentations>
+    <!-- A Presentation is a sub or superset of hosts. A Presentation
+		     configuration identifies which hosts for a Presentation and how the
+		     functionality for that set of hosts should behave.
+		     A Presentation should contain an Id attribute, which is used to store
+		     Tracking and Profiling information in the database.
+		     Multiple Presentation elements are allowed. -->
+    <Presentation Id="1">
+      <!-- The Host element allows you to identify a host that should be part of
+			     the Presentation. Multiple host elements are allowed.
+			    The following attributes are specified:
+				Domain    The domain of the website, for example www.tridion.com. The default domain is localhost.
+				Port      The port of the website, for instance 8080. The default port is 80.
+				Path      The path identifying a virtual directory or a subset of your of your website.
+				          The default path is /.
+				Protocol  The protocol used for the website. The default protocol is http. -->
+      <Host Domain="www.visitorsweb.com" Port="80" Protocol="http" Path="/"/>
+      <Host Domain="localhost" Port="80" Protocol="http" Path="/"/>
+      <!-- The Personalization element holds configuration information about tracking
+			     and profiling. The Enabled attribute can be used to turn on and off.
+			     The second attribute Persistence should be set to cookies. -->
+      <Personalization Enabled="true" Persistence="cookies">
+        <!-- The Cookie element allows you to specify properties for cookies. -->
+        <Cookie Name="TDS1234567" Expires="39000"/>
+        <!-- The Tracking element allows you to specify properties for Tracking. -->
+        <Tracking>
+          <!-- The Timeframe element allows you to specify properties for Timeframes
+					     which are used in Tracking. The following attributes can be set:
+							Type       The type of timeframe (hourly, daily, weekly or monthly).
+							Multiplier The multiplier attribute allows you to influence the time-
+							           frame type. For example, if type is set to hourly and the
+							           multiplier is set to 2, the timeframe period is two hours.
+							Autofill   This property indicates if missing timeframes should be
+							           recreated. Timeframes can be missing when the server has
+							           offline for a certain time. -->
+          <Timeframe Type="hourly" Multiplier="1" Autofill="true"/>
+          <!-- To enable the tracking of Page Requests, set the Enabled attribute of
+					     the Pages element to true. -->
+          <Pages Enabled="true"/>
+          <!-- To enable the tracking of Component visits, set the Enabled attribute
+						of the Components element to true.
+						The Max attribute identifies the maximum number of components that are
+						allowed to be on a page for the components to be tracked. -->
+          <Components Enabled="true" Max="10" Averaging="true"/>
+          <!-- To enable the tracking of Component Link Clicks, set the Enabled
+					     attribute of the ComponentsLinks element to true.
+					     Also, the AddComponentLinkInfo attribute of the Linking element in the
+					     Tridion Linking configuration file (cd_link_conf.xml) should be set to true. -->
+          <ComponentLinks Enabled="true"/>
+          <Keys Enabled="true" Increment="50" Decrement="1" Averaging="false" ComponentLinks="true"/>
+          <!-- The Exclude element allows you to exclude Pages, Components and Paths
+					     being tracked. -->
+          <Exclude>
+            <!-- Pages are excluded by id. These id's should be separated by semi-colons.
+						     Ranges can be specified by using a dash between two numeric values. -->
+            <Pages>1;2;4-100;125</Pages>
+            <!-- Components are excluded by id. These id's should be separated by
+						     semi-colons. It is also allowed to specify ranges, this can be done
+						     by using a dash between two numeric values. -->
+            <Components/>
+            <!-- Paths can be separated by semi-colons. An asterix (*) can be used
+						     as a wildcard. Two asterixes indicate that the wildcard is cross-directories. -->
+            <Paths/>
+          </Exclude>
+        </Tracking>
+        <!-- For Customer Characteristics it is possible to configure if values
+				     should be trimmed (removing preceding and trailing spaces) or not.
+				     If the PreserveWhitespace attribute is set to true, the values will
+				     not be trimmed. If it is set to false, values are trimmed. -->
+        <CustomerCharacteristics PreserveWhitespace="true"/>
+      </Personalization>
+    </Presentation>
+  </Presentations>
+
+  <!--
+	Specifies the location of the license file.
+	-->
+
+  <License Location="c:/Program Files (x86)/Tridion/config/cd_licenses.xml"/>
+
+</Configuration>
