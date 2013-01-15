@@ -262,6 +262,8 @@ namespace CreateAnEnvironmentForMe
 
         internal void AddSiteEditToTemplate(string templateId)
         {
+            TcmUri uri = new TcmUri(templateId);
+            templateId = uri.GetVersionlessUri();
             TemplateData template = (TemplateData)_client.Read(templateId, _readOptions);
             // find siteedit templates
             string context = template.BluePrintInfo.OwningRepository.IdRef;
