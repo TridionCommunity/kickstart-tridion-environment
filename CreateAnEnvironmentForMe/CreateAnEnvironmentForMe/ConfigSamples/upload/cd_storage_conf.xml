@@ -23,10 +23,12 @@
                 <Bundle src="mybindings.xml"/>
             </StorageBindings>
 			-->
+      <!-- Not enabled by default -->
+      <!--
       <StorageBindings>
         <Bundle src="undo_dao_bundle.xml"/>
       </StorageBindings>
-
+-->
       <Storage Type="persistence" Id="sqlserver" dialect="MSSQL" Class="com.tridion.storage.persistence.JPADAOFactory">
         <Pool Type="jdbc" Size="5" MonitorInterval="60" IdleTimeout="120" CheckoutTimeout="120" />
         <DataSource Class="com.microsoft.sqlserver.jdbc.SQLServerDataSource">
