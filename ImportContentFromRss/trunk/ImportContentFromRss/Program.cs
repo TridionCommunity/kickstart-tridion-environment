@@ -17,7 +17,7 @@ namespace ImportContentFromRss
         static void Main(string[] args)
         {
 
-            SessionAwareCoreServiceClient client = new SessionAwareCoreServiceClient("netTcp_2012");
+            SessionAwareCoreServiceClient client = new SessionAwareCoreServiceClient("netTcp_2011");
 
             ContentManager cm = new ContentManager(client);
 

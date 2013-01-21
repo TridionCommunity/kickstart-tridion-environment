@@ -80,6 +80,8 @@ namespace ImportContentFromRss.Content
             }
             if (string.IsNullOrEmpty(Content.Title))
                 Content.Title = "No title specified!";
+            // Item titles cannot contain backslashes :)
+            if (Content.Title.Contains("\\")) Content.Title = Content.Title.Replace("\\", "/");
             Content.Content = _fields.ToString();
             TcmUri contentId = new TcmUri(Content.Id);
             if(!contentId.IsVersionless)

@@ -12,7 +12,7 @@ namespace ImportContentFromRss.Content
         public Article(SessionAwareCoreServiceClient client, TcmUri location)
             : base(client)
         {
-            ComponentData component = (ComponentData)Client.GetDefaultData(ItemType.Component, location, ReadOptions);
+            ComponentData component = (ComponentData)Client.GetDefaultData(ItemType.Component, location);
             component.Schema = new LinkToSchemaData { IdRef = ContentManager.ResolveUrl(Constants.ArticleSchemaUrl) };
             Content = component;
         }
