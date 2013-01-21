@@ -154,7 +154,7 @@ namespace CreateAnEnvironmentForMe
             {
                 DirectoryInfo info = new DirectoryInfo(websiteRoot);
                 DirectorySecurity security = info.GetAccessControl();
-                security.AddAccessRule(new FileSystemAccessRule("Network Service", FileSystemRights.Write|FileSystemRights.DeleteSubdirectoriesAndFiles, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.InheritOnly, AccessControlType.Allow));
+                security.AddAccessRule(new FileSystemAccessRule("Network Service", FileSystemRights.Modify, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.InheritOnly, AccessControlType.Allow));
                 info.SetAccessControl(security);
             }
 
@@ -206,7 +206,9 @@ namespace CreateAnEnvironmentForMe
 
             string version = GetServerVersion();
             if (version.StartsWith("6.1"))
+            {
                 content = content.Replace("##VERSION##", "6.1");
+            }
             else if (version.StartsWith("7.0"))
                 content = content.Replace("##VERSION##", "7.0");
             else
