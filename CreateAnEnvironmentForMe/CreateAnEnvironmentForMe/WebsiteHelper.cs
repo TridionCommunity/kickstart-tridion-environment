@@ -44,7 +44,7 @@ namespace CreateAnEnvironmentForMe
 
         }
 
-        
+
         internal void CopyFilesForWebsite(string websiteRoot, string configurationFile, Role role, TargetLanguage language)
         {
             if (!File.Exists(configurationFile))
@@ -150,11 +150,11 @@ namespace CreateAnEnvironmentForMe
 
 
             // Set permissions if web site
-            if(role == Role.PreviewWeb)
+            if (role == Role.PreviewWeb)
             {
                 DirectoryInfo info = new DirectoryInfo(websiteRoot);
                 DirectorySecurity security = info.GetAccessControl();
-                security.AddAccessRule(new FileSystemAccessRule("Network Service", FileSystemRights.Modify, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.InheritOnly, AccessControlType.Allow));
+                security.AddAccessRule(new FileSystemAccessRule("Network Service", FileSystemRights.Write | FileSystemRights.Read | FileSystemRights.ListDirectory | FileSystemRights.ReadAndExecute | FileSystemRights.Modify | FileSystemRights.CreateFiles | FileSystemRights.CreateDirectories | FileSystemRights.WriteAttributes | FileSystemRights.Delete | FileSystemRights.DeleteSubdirectoriesAndFiles, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.InheritOnly, AccessControlType.Allow));
                 info.SetAccessControl(security);
             }
 
