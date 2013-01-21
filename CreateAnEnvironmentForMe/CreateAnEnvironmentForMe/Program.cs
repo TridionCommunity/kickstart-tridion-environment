@@ -1,4 +1,5 @@
 ﻿using System.Security.Principal;
+using System.ServiceModel;
 using ContentClasses;
 using System;
 using System.Collections.Generic;
@@ -71,10 +72,8 @@ namespace CreateAnEnvironmentForMe
                 return;
             }
 
-            SessionAwareCoreServiceClient client = new SessionAwareCoreServiceClient("netTcp_2012");
+            SessionAwareCoreServiceClient client = new SessionAwareCoreServiceClient("netTcp_2011");
             Console.WriteLine("Connected to Tridion with version: " + client.GetApiVersion());
-
-
 
             // Create Blueprint
             CoreServiceHelper helper = new CoreServiceHelper(client) { CreateIfNewItem = true };
@@ -208,12 +207,11 @@ namespace CreateAnEnvironmentForMe
 
             WebsiteHelper websiteHelper = new WebsiteHelper();
             XDocument sites = XDocument.Load("SitesToCreate.xml");
-
             foreach (XElement site in sites.Elements("Sites").Elements("Site"))
             {
                 // Let's default to PreviewWeb... have to start somewhere
                 WebsiteHelper.Role theRole = WebsiteHelper.Role.PreviewWeb;
-                
+
                 string root = site.Element("Root").Value;
                 string name = site.Element("Name").Value;
                 WebsiteHelper.TargetLanguage language;
@@ -235,8 +233,8 @@ namespace CreateAnEnvironmentForMe
                         theRole = WebsiteHelper.Role.PreviewWebService;
                         break;
                 }
-               
-                
+
+
                 int port = 0;
                 if (site.Element("Port") != null)
                     port = Convert.ToInt32(site.Element("Port").Value);

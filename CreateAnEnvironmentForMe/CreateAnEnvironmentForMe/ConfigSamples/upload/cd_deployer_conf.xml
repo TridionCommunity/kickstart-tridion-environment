@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- The Tridion Content Distributor Deployer configuration specifies all
     configuration values required to receive and deploy content to a delivery system. -->
-<Deployer Version="7.0"
+<Deployer Version="##VERSION##"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="schemas/cd_deployer_conf.xsd">
   <!-- The Processors section defines what actions the Deployer is able to

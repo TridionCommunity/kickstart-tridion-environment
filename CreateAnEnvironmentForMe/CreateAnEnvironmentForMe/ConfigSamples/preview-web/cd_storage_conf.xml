@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Configuration Version="7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schemas/cd_storage_conf.xsd">
+<Configuration Version="##VERSION##" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schemas/cd_storage_conf.xsd">
   <Global>
     <ObjectCache Enabled="false">
       <Policy Type="LRU" Class="com.tridion.cache.LRUPolicy">
