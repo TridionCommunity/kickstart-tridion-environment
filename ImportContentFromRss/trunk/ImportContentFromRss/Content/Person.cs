@@ -11,7 +11,7 @@ namespace ImportContentFromRss.Content
 
         public Person(SessionAwareCoreServiceClient client):base(client)
         {
-            Content = (ComponentData)Client.GetDefaultData(ItemType.Component, Constants.PersonLocationUrl, ReadOptions);
+            Content = (ComponentData)Client.GetDefaultData(ItemType.Component, Constants.PersonLocationUrl);
             Content.Schema = new LinkToSchemaData {IdRef = ContentManager.ResolveUrl(Constants.PersonSchemaUrl)};
         }
 

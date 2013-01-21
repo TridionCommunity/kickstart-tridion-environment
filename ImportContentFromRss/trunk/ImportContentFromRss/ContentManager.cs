@@ -93,7 +93,7 @@ namespace ImportContentFromRss
             if (year == null)
             {
                 FolderData f =
-                    (FolderData)_client.GetDefaultData(ItemType.Folder, Constants.ArticleLocationUrl, _readOptions);
+                    (FolderData)_client.GetDefaultData(ItemType.Folder, Constants.ArticleLocationUrl);
                 f.Title = yearName;
                 f = (FolderData)_client.Save(f, _readOptions);
                 year = f.Id;
@@ -110,7 +110,7 @@ namespace ImportContentFromRss
             }
             if (month == null)
             {
-                FolderData f = (FolderData)_client.GetDefaultData(ItemType.Folder, year, _readOptions);
+                FolderData f = (FolderData)_client.GetDefaultData(ItemType.Folder, year);
                 f.Title = monthName;
                 f = (FolderData)_client.Save(f, _readOptions);
                 month = f.Id;
@@ -125,7 +125,7 @@ namespace ImportContentFromRss
             }
             if (day == null)
             {
-                FolderData f = (FolderData)_client.GetDefaultData(ItemType.Folder, month, _readOptions);
+                FolderData f = (FolderData)_client.GetDefaultData(ItemType.Folder, month);
                 f.Title = dayName;
                 f = (FolderData)_client.Save(f, _readOptions);
                 day = f.Id;
@@ -245,8 +245,7 @@ namespace ImportContentFromRss
                 // Must create a new one
                 _keywordDirty = true;
                 KeywordData newKeyword = (KeywordData)_client.GetDefaultData(ItemType.Keyword,
-                                                                             ResolveUrl(Constants.ContentCategoryUrl),
-                                                                             _readOptions);
+                                                                             ResolveUrl(Constants.ContentCategoryUrl));
                 newKeyword.Title = keyword;
                 _client.Save(newKeyword, null);
             }
@@ -263,7 +262,7 @@ namespace ImportContentFromRss
             }
             StructureGroupData sg =
                 (StructureGroupData)
-                _client.GetDefaultData(ItemType.StructureGroup, parentStructureGroup, _readOptions);
+                _client.GetDefaultData(ItemType.StructureGroup, parentStructureGroup);
             sg.Title = sgTitle;
             sg.Directory = Regex.Replace(sgTitle, "\\W", "").ToLowerInvariant().Replace("á", "a").Replace("ó", "o");
             sg = (StructureGroupData)_client.Save(sg, _readOptions);
@@ -319,7 +318,7 @@ namespace ImportContentFromRss
                 if (node.Attribute("Title").Value.Equals(pageTitle))
                     return node.Attribute("ID").Value;
             }
-            PageData page = (PageData)_client.GetDefaultData(ItemType.Page, sg, _readOptions);
+            PageData page = (PageData)_client.GetDefaultData(ItemType.Page, sg);
             page.Title = pageTitle;
             page.FileName = Regex.Replace(pageTitle, "\\W", "").ToLowerInvariant();
             page = (PageData)_client.Save(page, _readOptions);
