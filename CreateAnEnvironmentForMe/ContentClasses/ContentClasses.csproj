@@ -36,10 +36,13 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
-    <Reference Include="Tridion.Common, Version=7.0.0.102, Culture=neutral, PublicKeyToken=349a39f202fa9b53, processorArchitecture=MSIL" />
-    <Reference Include="Tridion.ContentManager.CoreService.Client, Version=7.0.0.1963, Culture=neutral, PublicKeyToken=ddfc895746e5ee6b, processorArchitecture=MSIL">
+    <Reference Include="Tridion.Common, Version=6.1.0.25, Culture=neutral, PublicKeyToken=349a39f202fa9b53, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\Tridion\bin\client\CoreService\Tridion.ContentManager.CoreService.Client.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Tridion\bin\client\Tridion.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Tridion.ContentManager.CoreService.Client, Version=7.0.0.2147, Culture=neutral, PublicKeyToken=ddfc895746e5ee6b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Tridion 2011\Tridion.ContentManager.CoreService.Client.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

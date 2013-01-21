@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Configuration Version="7.0"
+<Configuration Version="##VERSION##"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xsi:noNamespaceSchemaLocation="schemas/cd_dynamic_conf.xsd">
   <!-- The URLMappings define the relation between publication id's and domain names. It has optional attribute

@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sites>
-  
   <Site>
     <Name>Staging Deployer</Name>
     <Root>c:\inetpub\staging\deployer</Root>
@@ -14,7 +13,6 @@
       <RootPath>c:\inetpub\staging\website</RootPath>
     </Storage>
   </Site>
-  
   <Site>
     <Name>Staging Website</Name>
     <Root>c:\inetpub\staging\website</Root>

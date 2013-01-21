@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- The Tridion WAI configuration specifies all configuration values to
  enable the Personalisation and Profiling functionality.       -->
-<Configuration Version="7.0"
+<Configuration Version="##VERSION##"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="schemas/cd_wai_conf.xsd">
   <!-- The Global section specifies configuration details that apply to all functionality. -->

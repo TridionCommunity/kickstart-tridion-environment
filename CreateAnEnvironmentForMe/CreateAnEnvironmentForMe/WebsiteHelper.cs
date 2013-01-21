@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Security.AccessControl;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Web.Administration;
 using System;
 using System.IO;
 using System.Xml.Linq;
+using Microsoft.Win32;
 using Tridion.ContentManager;
 
 namespace CreateAnEnvironmentForMe
@@ -23,6 +25,26 @@ namespace CreateAnEnvironmentForMe
             PreviewWebService
         }
 
+        internal bool IsVersion7Server
+        {
+            get
+            {
+                string tridionKey = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Tridion",
+                                                           "SuiteVersion", null).ToString();
+                if (tridionKey.StartsWith("6")) return false;
+                return true;
+            }
+        }
+
+        internal static string GetServerVersion()
+        {
+            string tridionKey = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Tridion",
+                                                       "SuiteVersion", null).ToString();
+            return tridionKey;
+
+        }
+
+        
         internal void CopyFilesForWebsite(string websiteRoot, string configurationFile, Role role, TargetLanguage language)
         {
             if (!File.Exists(configurationFile))
@@ -60,8 +82,33 @@ namespace CreateAnEnvironmentForMe
             XDocument config = XDocument.Load(configurationFile);
             string jdbc = config.Root.Element("Folder").Attribute("source").Value;
             jdbc += Path.DirectorySeparatorChar + config.Root.Element("Folder").Element("File").Value;
+            string version = GetServerVersion();
+            if (version.StartsWith("7.0.0"))
+                version = "7.0.0";
+            else if (version.StartsWith("6.1.0"))
+                version = "6.1.0";
+            else
+            {
+                Console.WriteLine("Unknown server version: " + version);
+                return;
 
-            XElement webapps = config.Root.Element("Webapps");
+            }
+
+
+            XElement webapps = null;
+            foreach (XElement node in config.Root.Elements("Webapps"))
+            {
+                if (node.Attribute("Version").Value.Equals(version))
+                    webapps = node;
+            }
+
+            if (webapps == null)
+            {
+                Console.WriteLine("Could not find any webapp configured for version " + version);
+                return;
+
+            }
+
             string webapp = null;
 
             foreach (XElement node in webapps.Nodes())
@@ -102,7 +149,14 @@ namespace CreateAnEnvironmentForMe
                 File.Copy(jdbc, libFolder + Path.DirectorySeparatorChar + Path.GetFileName(jdbc));
 
 
-            // Find samples for current role
+            // Set permissions if web site
+            if(role == Role.PreviewWeb)
+            {
+                DirectoryInfo info = new DirectoryInfo(websiteRoot);
+                DirectorySecurity security = info.GetAccessControl();
+                security.AddAccessRule(new FileSystemAccessRule("Network Service", FileSystemRights.Write|FileSystemRights.DeleteSubdirectoriesAndFiles, InheritanceFlags.ObjectInherit | InheritanceFlags.ContainerInherit, PropagationFlags.InheritOnly, AccessControlType.Allow));
+                info.SetAccessControl(security);
+            }
 
         }
 
@@ -119,7 +173,7 @@ namespace CreateAnEnvironmentForMe
             string content = File.ReadAllText(source);
             XElement storage = null;
             string port = null;
-            if(site != null)
+            if (site != null)
             {
                 storage = site.Element("Storage");
                 port = site.Element("Port").Value;
@@ -143,12 +197,23 @@ namespace CreateAnEnvironmentForMe
             }
 
             if (name != null) content = content.Replace("##NAME##", name);
-            if(Path.GetFileName(target).Equals("cd_dynamic_conf.xml"))
+            if (Path.GetFileName(target).Equals("cd_dynamic_conf.xml"))
             {
                 if (port != null) content = content.Replace("##PORT##", port);
                 content = content.Replace("##WEBSITEPUBLICATIONID##",
                                           Convert.ToString(new TcmUri(Configuration.WebsitePublicationId).ItemId));
             }
+
+            string version = GetServerVersion();
+            if (version.StartsWith("6.1"))
+                content = content.Replace("##VERSION##", "6.1");
+            else if (version.StartsWith("7.0"))
+                content = content.Replace("##VERSION##", "7.0");
+            else
+            {
+                Console.WriteLine("Unknown Tridion server version " + version + ". You may have to fix the configuration file version by hand.");
+            }
+
             XDocument doc = XDocument.Parse(content);
             doc.Save(target);
         }

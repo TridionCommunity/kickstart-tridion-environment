@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<Configuration Version="7.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schemas/cd_ambient_conf.xsd">
+<Configuration Version="##VERSION##" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="schemas/cd_ambient_conf.xsd">
   <Security>
     <!--
 		<RequestValidator>com.tridion.webservices.security.validator.OAuth2RequestValidator</RequestValidator>

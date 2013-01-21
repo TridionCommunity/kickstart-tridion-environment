@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Xml.Linq;
 using ContentClasses;
 using Tridion.ContentManager;
@@ -41,7 +42,8 @@ namespace CreateAnEnvironmentForMe
             {
                 // New Publication
                 PublicationData newPublication =
-                    (PublicationData)_client.GetDefaultData(ItemType.Publication, null, _readOptions);
+                    //(PublicationData)_client.GetDefaultData(ItemType.Publication, null, _readOptions);
+                    (PublicationData) _client.GetDefaultData(ItemType.Publication, null);
                 newPublication.Title = publicationTitle;
                 newPublication.Key = publicationTitle;
 
@@ -73,7 +75,8 @@ namespace CreateAnEnvironmentForMe
             if (publication.RootStructureGroup.IdRef == TcmUri.UriNull)
             {
                 StructureGroupData structureGroup =
-                    (StructureGroupData)_client.GetDefaultData(ItemType.StructureGroup, publicationId, _readOptions);
+                    //(StructureGroupData)_client.GetDefaultData(ItemType.StructureGroup, publicationId, _readOptions);
+                    (StructureGroupData)_client.GetDefaultData(ItemType.StructureGroup, publicationId);
                 structureGroup.Title = rootStructureGroupTitle;
                 _client.Save(structureGroup, null);
             }
@@ -110,7 +113,8 @@ namespace CreateAnEnvironmentForMe
             if (folderId.Equals(TcmUri.UriNull) && CreateIfNewItem)
             {
                 // New folder
-                FolderData folder = (FolderData)_client.GetDefaultData(ItemType.Folder, parentFolderId, _readOptions);
+                FolderData folder = (FolderData) _client.GetDefaultData(ItemType.Folder, parentFolderId);
+                    //(FolderData)_client.GetDefaultData(ItemType.Folder, parentFolderId, _readOptions);
                 folder.Title = folderTitle;
                 folder = (FolderData)_client.Save(folder, _readOptions);
                 folderId = folder.Id;
@@ -143,7 +147,7 @@ namespace CreateAnEnvironmentForMe
             }
             if (schemaId.Equals(TcmUri.UriNull) && xsd != null && CreateIfNewItem && purpose != SchemaPurpose.UnknownByClient)
             {
-                SchemaData schema = (SchemaData)_client.GetDefaultData(ItemType.Schema, parentFolderId, _readOptions);
+                SchemaData schema = (SchemaData)_client.GetDefaultData(ItemType.Schema, parentFolderId);
                 schema.Title = schemaTitle;
                 schema.Description = schemaTitle;
                 schema.Purpose = purpose;
@@ -178,7 +182,7 @@ namespace CreateAnEnvironmentForMe
             if (categoryId.Equals(TcmUri.UriNull))
             {
                 CategoryData category =
-                    (CategoryData)_client.GetDefaultData(ItemType.Category, publicationId, _readOptions);
+                    (CategoryData)_client.GetDefaultData(ItemType.Category, publicationId);
                 category.Title = categoryTitle;
                 category.XmlName = categoryTitle;
                 category = (CategoryData)_client.Save(category, _readOptions);
@@ -226,7 +230,7 @@ namespace CreateAnEnvironmentForMe
             Console.WriteLine("Creating new source " + name);
             ComponentData component =
                 (ComponentData)
-                _client.GetDefaultData(ItemType.Component, informationSourceFolder, _readOptions);
+                _client.GetDefaultData(ItemType.Component, informationSourceFolder);
             component.Schema = new LinkToSchemaData { IdRef = informationSourceSchema };
             component.Title = name;
             component.Id = TcmUri.UriNull;
@@ -249,7 +253,7 @@ namespace CreateAnEnvironmentForMe
                 if (node.Attribute("Title").Value.Equals(componentTemplateTitle))
                     return node.Attribute("ID").Value;
             }
-            ComponentTemplateData ct = (ComponentTemplateData)_client.GetDefaultData(ItemType.ComponentTemplate, container, _readOptions);
+            ComponentTemplateData ct = (ComponentTemplateData)_client.GetDefaultData(ItemType.ComponentTemplate, container);
             ct.Title = componentTemplateTitle;
             List<LinkToSchemaData> schemaLinks = new List<LinkToSchemaData>();
             schemaLinks.Add(new LinkToSchemaData { IdRef = GetUriInBlueprintContext(schemaId, Configuration.TemplatePublicationId) });
@@ -268,6 +272,53 @@ namespace CreateAnEnvironmentForMe
             // find siteedit templates
             string context = template.BluePrintInfo.OwningRepository.IdRef;
             TemplateBuildingBlockData tbb;
+
+            // If this is Tridion 6.1 there won't be a building block for SiteEdit yet
+            if(WebsiteHelper.GetServerVersion().StartsWith("6.1"))
+            {
+                if (!_client.IsExistingObject(Configuration.UrlEnableInlineEditingForContentTbb))
+                {
+                    string tridionHome = Environment.GetEnvironmentVariable("TRIDION_CM_HOME");
+                    string siteEditAssembly = Path.Combine(tridionHome, "bin", "Tridion.SiteEdit.Templating.dll");
+                    if (File.Exists(siteEditAssembly))
+                    {
+                        string defaultTbbFolder = null;
+                        OrganizationalItemItemsFilterData filter = new OrganizationalItemItemsFilterData();
+                        filter.ItemTypes = new[] {ItemType.Folder};
+                        foreach (
+                            XElement node in
+                                _client.GetListXml(
+                                    GetUriInBlueprintContext(Configuration.BuildingBlocksFolderId,
+                                                             Configuration.TopPublicationId), filter).Nodes())
+                        {
+                            if (node.Attribute("Title").Value.Equals("Default Templates"))
+                            {
+                                defaultTbbFolder = node.Attribute("ID").Value;
+                                break;
+                            }
+                        }
+                        if (defaultTbbFolder != null)
+                        {
+                            Console.WriteLine("Uploading SiteEdit TBB Assembly");
+                            string tcmUpload = Path.Combine(tridionHome, "bin", "client", "TcmUploadAssembly.exe");
+                            string parameters = string.Format("/folder:{0} /targeturl:{1} \"{2}\"", defaultTbbFolder,
+                                                              "http://localhost", siteEditAssembly);
+                            Process process = new Process();
+                            ProcessStartInfo startInfo = new ProcessStartInfo
+                                                             {
+                                                                 WindowStyle = ProcessWindowStyle.Minimized,
+                                                                 FileName = tcmUpload,
+                                                                 Arguments = parameters
+                                                             };
+                            process.StartInfo = startInfo;
+                            process.Start();
+                            process.WaitForExit();
+
+                        }
+                    }
+                }
+            }
+
             if (template is ComponentTemplateData)
             {
                 tbb =
@@ -347,7 +398,7 @@ namespace CreateAnEnvironmentForMe
             if (targetTypeId.Equals(TcmUri.UriNull))
             {
                 TargetTypeData targetType =
-                    (TargetTypeData)_client.GetDefaultData(ItemType.TargetType, null, _readOptions);
+                    (TargetTypeData)_client.GetDefaultData(ItemType.TargetType, null);
                 targetType.Title = targetName;
                 targetType.Description = targetName;
                 targetType = (TargetTypeData)_client.Save(targetType, _readOptions);
@@ -367,17 +418,22 @@ namespace CreateAnEnvironmentForMe
             if (pTargetId.Equals(TcmUri.UriNull))
             {
                 PublicationTargetData pt =
-                    (PublicationTargetData)_client.GetDefaultData(ItemType.PublicationTarget, null, _readOptions);
+                    (PublicationTargetData)_client.GetDefaultData(ItemType.PublicationTarget, null);
                 pt.Title = targetName;
                 pt.Description = targetName;
                 pt.Publications = new[] { new LinkToPublicationData { IdRef = Configuration.WebsitePublicationId } };
                 pt.TargetTypes = new[] { new LinkToTargetTypeData { IdRef = targetTypeId } };
+
+                SchemaData protocolSchema = (SchemaData) _client.Read("/webdav//HTTPS.xsd", _readOptions);
+                
+                //_client.GetSystemWideListXml()
+
                 TargetDestinationData destination = new TargetDestinationData
                                                         {
-                                                            ProtocolSchema = new LinkToSchemaData { IdRef = "tcm:0-6-8" },
+                                                            ProtocolSchema = new LinkToSchemaData { IdRef = protocolSchema.Id },
                                                             Title = targetName,
                                                             ProtocolData =
-                                                                "<HTTPS xmlns=\"http://www.tridion.com/ContentManager/5.0/Protocol/HTTPS\"><UserName>notused</UserName><Password>notused</Password><URL>" +
+                                                                "<HTTPS xmlns=\""+ protocolSchema.NamespaceUri + "\"><UserName>notused</UserName><Password>notused</Password><URL>" +
                                                                 url + "</URL></HTTPS>"
                                                         };
                 pt.Destinations = new[] { destination };
@@ -412,7 +468,7 @@ namespace CreateAnEnvironmentForMe
             }
 
             ProcessDefinitionData processDefinition =
-                (ProcessDefinitionData)_client.GetDefaultData(ItemType.ProcessDefinition, publicationId, _readOptions);
+                (ProcessDefinitionData)_client.GetDefaultData(ItemType.ProcessDefinition, publicationId);
 
             processDefinition.Title = processName;
             processDefinition.StoreSnapshot = false;
