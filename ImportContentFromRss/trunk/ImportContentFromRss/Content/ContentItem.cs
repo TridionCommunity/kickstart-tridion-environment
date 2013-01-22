@@ -1,4 +1,5 @@
-﻿using Tridion.ContentManager;
+﻿using System;
+using Tridion.ContentManager;
 using Tridion.ContentManager.CoreService.Client;
 
 namespace ImportContentFromRss.Content
@@ -89,8 +90,17 @@ namespace ImportContentFromRss.Content
                 contentId = new TcmUri(contentId.ItemId, contentId.ItemType, contentId.PublicationId);
                 Content.Id = contentId.ToString();
             }
-            Content = (ComponentData)Client.Save(Content, ReadOptions);
-            Client.CheckIn(Content.Id, null);
+            try
+            {
+                Content = (ComponentData)Client.Save(Content, ReadOptions);
+                Client.CheckIn(Content.Id, null);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ooops, something went wrong saving component " + Content.Title);
+                Console.WriteLine(ex.Message);
+            }
+            
         }
     }
 }

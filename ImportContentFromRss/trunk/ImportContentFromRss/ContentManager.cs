@@ -271,6 +271,8 @@ namespace ImportContentFromRss
 
         internal string GetUriInBlueprintContext(string itemId, string publicationId)
         {
+            if (TcmUri.UriNull == itemId)
+                return null;
             TcmUri itemUri = new TcmUri(itemId);
             TcmUri publicationUri = new TcmUri(publicationId);
             TcmUri inContext = new TcmUri(itemUri.ItemId, itemUri.ItemType, publicationUri.ItemId);
@@ -298,11 +300,13 @@ namespace ImportContentFromRss
             string ctId = GetUriInBlueprintContext(ResolveUrl(Constants.ArticleComponentTemplateUrl),
                                                    ResolveUrl(Constants.WebSitePublication));
             ComponentPresentationData cp = new ComponentPresentationData();
-            cp.Component = new LinkToComponentData { IdRef = articleId };
-            cp.ComponentTemplate = new LinkToComponentTemplateData { IdRef = ctId };
-            componentPresentations.Add(cp);
-            page.ComponentPresentations = componentPresentations.ToArray();
-
+            if(articleId != null && articleId != TcmUri.UriNull)
+            {
+                cp.Component = new LinkToComponentData {IdRef = articleId};
+                cp.ComponentTemplate = new LinkToComponentTemplateData {IdRef = ctId};
+                componentPresentations.Add(cp);
+                page.ComponentPresentations = componentPresentations.ToArray();
+            }
             _client.Save(page, null);
             _client.CheckIn(page.Id, null);
             watch.Stop();
@@ -311,8 +315,8 @@ namespace ImportContentFromRss
 
         public string GetPage(string sg, string pageTitle)
         {
-            OrganizationalItemItemsFilterData filter = new OrganizationalItemItemsFilterData();
-            filter.ItemTypes = new[] { ItemType.Page };
+            OrganizationalItemItemsFilterData filter = new OrganizationalItemItemsFilterData
+                                                           {ItemTypes = new[] {ItemType.Page}};
             foreach (XElement node in _client.GetListXml(sg, filter).Nodes())
             {
                 if (node.Attribute("Title").Value.Equals(pageTitle))
