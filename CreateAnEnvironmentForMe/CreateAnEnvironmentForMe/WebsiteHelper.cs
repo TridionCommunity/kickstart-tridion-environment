@@ -204,6 +204,16 @@ namespace CreateAnEnvironmentForMe
                                           Convert.ToString(new TcmUri(Configuration.WebsitePublicationId).ItemId));
             }
 
+            if(Path.GetFileName(target).Equals("cd_ambient_conf.xml"))
+            {
+                if (IsVersion7Server)
+                    content = content.Replace("##CLAIMSTORE##",
+                                              "com.tridion.preview.web.ambient.PreviewClaimStoreProvider");
+                else
+                    content = content.Replace("##CLAIMSTORE##",
+                                              "com.tridion.siteedit.preview.PreviewClaimStoreProvider");
+            }
+
             string version = GetServerVersion();
             if (version.StartsWith("6.1"))
             {
