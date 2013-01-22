@@ -57,6 +57,7 @@
   -->
   <!--
      This setting should be used only in combination with the New UI 2012
+     The claimstore to use is different between Tridion versions!
      -->
-  <ClaimStoreProvider>com.tridion.preview.web.ambient.PreviewClaimStoreProvider</ClaimStoreProvider>
+  <ClaimStoreProvider>##CLAIMSTORE##</ClaimStoreProvider>
 </Configuration>
