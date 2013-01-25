@@ -2,9 +2,7 @@
 
 = What you need =
 
-This tool is currently setup to work with Tridion 2013 only (not yet released) so you may find some issues if you try it with 2011.
-
-I will try to make it work on both, but currently my priority is 2013... 
+This tool is currently setup to work with both Tridion 2011 and Tridion 2013 (not yet released).
 
 
 = Details =
