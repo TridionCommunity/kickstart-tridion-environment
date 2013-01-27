@@ -38,6 +38,9 @@ namespace CreateAnEnvironmentForMe
 
         internal static string GetServerVersion()
         {
+            if (Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Tridion", "SuiteVersion", null) == null)
+                return null;
+
             string tridionKey = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Tridion",
                                                        "SuiteVersion", null).ToString();
             return tridionKey;
