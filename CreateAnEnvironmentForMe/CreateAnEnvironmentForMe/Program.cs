@@ -73,7 +73,10 @@ namespace CreateAnEnvironmentForMe
             }
 
             SessionAwareCoreServiceClient client = new SessionAwareCoreServiceClient("netTcp_2011");
-            Console.WriteLine("Connected to Tridion with version: " + client.GetApiVersion());
+            string version = client.GetApiVersion();
+            Console.WriteLine("Connected to Tridion with version: " + version);
+
+            Configuration.ServerVersion = version.StartsWith("6.1") ? ServerVersion.Version6 : ServerVersion.Version7;
 
             // Create Blueprint
             CoreServiceHelper helper = new CoreServiceHelper(client) { CreateIfNewItem = true };

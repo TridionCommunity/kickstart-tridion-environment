@@ -43,5 +43,9 @@ namespace CreateAnEnvironmentForMe
             "/webdav/000%20System%20Parent/Building%20Blocks/Default%20Templates/Enable%20inline%20editing%20for%20Page.tbbcs";
         public const string UrlEnableInlineEditingForContentTbb =
             "/webdav/000%20System%20Parent/Building%20Blocks/Default%20Templates/Enable%20inline%20editing%20for%20content.tbbcs";
+
+        public static ServerVersion ServerVersion = ServerVersion.Version7;
     }
+
+    public enum ServerVersion{Version6,Version7}
 }

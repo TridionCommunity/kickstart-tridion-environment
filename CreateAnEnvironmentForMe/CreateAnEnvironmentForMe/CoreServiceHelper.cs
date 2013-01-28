@@ -274,7 +274,7 @@ namespace CreateAnEnvironmentForMe
             TemplateBuildingBlockData tbb;
 
             // If this is Tridion 6.1 there won't be a building block for SiteEdit yet
-            if(WebsiteHelper.GetServerVersion().StartsWith("6.1"))
+            if(Configuration.ServerVersion == ServerVersion.Version6)
             {
                 if (!_client.IsExistingObject(Configuration.UrlEnableInlineEditingForContentTbb))
                 {

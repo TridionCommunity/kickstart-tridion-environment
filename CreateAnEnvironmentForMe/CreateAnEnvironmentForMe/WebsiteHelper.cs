@@ -25,28 +25,6 @@ namespace CreateAnEnvironmentForMe
             PreviewWebService
         }
 
-        internal bool IsVersion7Server
-        {
-            get
-            {
-                string tridionKey = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Tridion",
-                                                           "SuiteVersion", null).ToString();
-                if (tridionKey.StartsWith("6")) return false;
-                return true;
-            }
-        }
-
-        internal static string GetServerVersion()
-        {
-            if (Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Tridion", "SuiteVersion", null) == null)
-                return null;
-
-            string tridionKey = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Tridion",
-                                                       "SuiteVersion", null).ToString();
-            return tridionKey;
-
-        }
-
 
         internal void CopyFilesForWebsite(string websiteRoot, string configurationFile, Role role, TargetLanguage language)
         {
@@ -85,14 +63,15 @@ namespace CreateAnEnvironmentForMe
             XDocument config = XDocument.Load(configurationFile);
             string jdbc = config.Root.Element("Folder").Attribute("source").Value;
             jdbc += Path.DirectorySeparatorChar + config.Root.Element("Folder").Element("File").Value;
-            string version = GetServerVersion();
-            if (version.StartsWith("7.0.0"))
+
+            string version = string.Empty;
+            if(Configuration.ServerVersion == ServerVersion.Version7)
                 version = "7.0.0";
-            else if (version.StartsWith("6.1.0"))
+            else if (Configuration.ServerVersion == ServerVersion.Version6)
                 version = "6.1.0";
             else
             {
-                Console.WriteLine("Unknown server version: " + version);
+                Console.WriteLine("Unknown server version.");
                 return;
 
             }
@@ -209,7 +188,7 @@ namespace CreateAnEnvironmentForMe
 
             if(Path.GetFileName(target).Equals("cd_ambient_conf.xml"))
             {
-                if (IsVersion7Server)
+                if (Configuration.ServerVersion == ServerVersion.Version7)
                     content = content.Replace("##CLAIMSTORE##",
                                               "com.tridion.preview.web.ambient.PreviewClaimStoreProvider");
                 else
@@ -217,16 +196,16 @@ namespace CreateAnEnvironmentForMe
                                               "com.tridion.siteedit.preview.PreviewClaimStoreProvider");
             }
 
-            string version = GetServerVersion();
-            if (version.StartsWith("6.1"))
+            string version = string.Empty;
+            if (Configuration.ServerVersion == ServerVersion.Version6)
             {
                 content = content.Replace("##VERSION##", "6.1");
             }
-            else if (version.StartsWith("7.0"))
+            else if (Configuration.ServerVersion == ServerVersion.Version7)
                 content = content.Replace("##VERSION##", "7.0");
             else
             {
-                Console.WriteLine("Unknown Tridion server version " + version + ". You may have to fix the configuration file version by hand.");
+                Console.WriteLine("Unknown Tridion server version. You may have to fix the configuration file version by hand.");
             }
 
             XDocument doc = XDocument.Parse(content);
