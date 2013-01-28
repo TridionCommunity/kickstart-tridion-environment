@@ -26,22 +26,22 @@
 
   <Webapps Version="7.0.0">
     <Webapp role="upload" language="Aspnet">
-      <File>D:\Software\Tridion 2013 Build 885\Content Delivery\roles\upload\dotNET\webapp\x86_64\upload.zip</File>
+      <File>D:\Software\Tridion 2013 Build 890\Content Delivery\roles\upload\dotNET\webapp\x86_64\upload.zip</File>
     </Webapp>
     <Webapp role="upload" language="Jsp">
-      <File>D:\Software\Tridion 2013 Build 885\Content Delivery\roles\upload\java\cd_upload.war</File>
+      <File>D:\Software\Tridion 2013 Build 890\Content Delivery\roles\upload\java\cd_upload.war</File>
     </Webapp>
     <Webapp role="preview-web" language="Aspnet">
-      <File>D:\Software\Tridion 2013 Build 885\Content Delivery\roles\preview\web\dotNet\webapp\x86_64.zip</File>
+      <File>D:\Software\Tridion 2013 Build 890\Content Delivery\roles\preview\web\dotNet\webapp\x86_64.zip</File>
     </Webapp>
     <Webapp role="preview-webservice" language="Aspnet">
-      <File>D:\Software\Tridion 2013 Build 885\Content Delivery\roles\preview\webservice\dotNET\webapp\x86_64.zip</File>
+      <File>D:\Software\Tridion 2013 Build 890\Content Delivery\roles\preview\webservice\dotNET\webapp\x86_64.zip</File>
     </Webapp>
     <Webapp role="preview-web" language="Jsp">
-      <File>D:\Software\Tridion 2013 Build 885\Content Delivery\roles\preview\web\java\webapp\cd_preview_web.war</File>
+      <File>D:\Software\Tridion 2013 Build 890\Content Delivery\roles\preview\web\java\webapp\cd_preview_web.war</File>
     </Webapp>
     <Webapp role="preview-webservice" language="Jsp">
-      <File>D:\Software\Tridion 2013 Build 885\Content Delivery\roles\preview\webservice\java\webapp\cd_preview_webservice.war</File>
+      <File>D:\Software\Tridion 2013 Build 890\Content Delivery\roles\preview\webservice\java\webapp\cd_preview_webservice.war</File>
     </Webapp>
   </Webapps>
 </Files>
