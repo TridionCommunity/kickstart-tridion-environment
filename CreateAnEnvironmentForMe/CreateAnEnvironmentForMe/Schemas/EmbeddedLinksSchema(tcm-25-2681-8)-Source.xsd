@@ -1,0 +1,40 @@
+<xsd:schema xmlns:tcmi="http://www.tridion.com/ContentManager/5.0/Instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+	<xsd:import namespace="http://www.tridion.com/ContentManager/5.0/Instance"></xsd:import>
+	<xsd:annotation>
+		<xsd:appinfo>
+			<tcm:Labels xmlns:tcm="http://www.tridion.com/ContentManager/5.0">
+				<tcm:Label ElementName="LinkText" Metadata="false">LinkText</tcm:Label>
+				<tcm:Label ElementName="LinkUrl" Metadata="false">LinkUrl</tcm:Label>
+				<tcm:Label ElementName="ComponentLink" Metadata="false">ComponentLink</tcm:Label>
+			</tcm:Labels>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:complexType name="Links">
+		<xsd:sequence>
+			<xsd:element name="LinkText" minOccurs="1" maxOccurs="1" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:appinfo>
+						<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LinkUrl" minOccurs="0" maxOccurs="1" type="tcmi:SimpleLink">
+				<xsd:annotation>
+					<xsd:appinfo>
+						<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+						<tcm:linktype xmlns:tcm="http://www.tridion.com/ContentManager/5.0">ExternalLink</tcm:linktype>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ComponentLink" minOccurs="0" maxOccurs="1" type="tcmi:SimpleLink">
+				<xsd:annotation>
+					<xsd:appinfo>
+						<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+						<tcm:linktype xmlns:tcm="http://www.tridion.com/ContentManager/5.0">ComponentLink</tcm:linktype>
+						<tcm:AllowMultimediaLinks xmlns:tcm="http://www.tridion.com/ContentManager/5.0">false</tcm:AllowMultimediaLinks>
+					</xsd:appinfo>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

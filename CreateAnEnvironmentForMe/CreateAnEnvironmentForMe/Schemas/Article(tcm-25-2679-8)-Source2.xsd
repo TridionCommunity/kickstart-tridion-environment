@@ -1,0 +1,188 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sdltridionworld.com/Content/Article" xmlns:tcmi="http://www.tridion.com/ContentManager/5.0/Instance" xmlns:category="tcm:0-25-1/Categories.xsd" elementFormDefault="qualified" targetNamespace="http://www.sdltridionworld.com/Content/Article">
+				<xsd:import namespace="http://www.tridion.com/ContentManager/5.0/Instance" schemaLocation="cm_xml_inst.xsd"></xsd:import>
+				<xsd:import namespace="tcm:0-25-1/Categories.xsd" schemaLocation="tcm:0-25-1/Categories.xsd"></xsd:import>
+				<xsd:include schemaLocation="tcm:25-2681-8"></xsd:include>
+				<xsd:annotation>
+					<xsd:appinfo>
+						<tcm:Labels xmlns:tcm="http://www.tridion.com/ContentManager/5.0">
+							<tcm:Label ElementName="ArticleTitle" Metadata="false">Article Title</tcm:Label>
+							<tcm:Label ElementName="ArticleSummary" Metadata="false">Article Summary</tcm:Label>
+							<tcm:Label ElementName="ArticleBody" Metadata="false">Article Body</tcm:Label>
+							<tcm:Label ElementName="ArticleUrl" Metadata="false">Url</tcm:Label>
+							<tcm:Label ElementName="Date" Metadata="false">Date</tcm:Label>
+							<tcm:Label ElementName="Author" Metadata="false">Author</tcm:Label>
+							<tcm:Label ElementName="RelatedContent" Metadata="false">Related Content</tcm:Label>
+							<tcm:Label ElementName="Links" Metadata="false">Links</tcm:Label>
+							<tcm:Label ElementName="ContentCategory" Metadata="false">Content Category</tcm:Label>
+							<tcm:Label ElementName="ArticleSource" Metadata="false">Article Source</tcm:Label>
+							<tcm:Label ElementName="StackOverflowQuestionId" Metadata="false">StackOverflowQuestionId</tcm:Label>
+							<tcm:Label ElementName="StackOverflowQuestionRank" Metadata="false">StackOverflowQuestionRank</tcm:Label>
+						</tcm:Labels>
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:element name="Content">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="ArticleTitle" minOccurs="1" maxOccurs="1" type="xsd:normalizedString">
+								<xsd:annotation>
+									<xsd:appinfo>
+										<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+									</xsd:appinfo>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ArticleSummary" minOccurs="1" maxOccurs="1" type="tcmi:XHTML">
+								<xsd:annotation>
+									<xsd:appinfo>
+										<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+										<tcm:Size xmlns:tcm="http://www.tridion.com/ContentManager/5.0">5</tcm:Size>
+										<tcm:FilterXSLT xmlns:tcm="http://www.tridion.com/ContentManager/5.0">
+											<stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" version="1.0">
+												<output omit-xml-declaration="yes" method="xml" cdata-section-elements="script"></output>
+												<template name="FormattingFeatures">
+													<FormattingFeatures xmlns="http://www.tridion.com/ContentManager/5.2/FormatArea" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+														<Doctype>Transitional</Doctype>
+														<AccessibilityLevel>0</AccessibilityLevel>
+														<DisallowedActions></DisallowedActions>
+														<DisallowedStyles></DisallowedStyles>
+													</FormattingFeatures>
+												</template>
+												<template match="/ | node() | @*">
+													<copy>
+														<apply-templates select="node() | @*"></apply-templates>
+													</copy>
+												</template>
+												<template match="*[      (self::br or self::p or self::div)     and      normalize-space(translate(., &apos;�&apos;, &apos;&apos;)) = &apos;&apos;     and      not(@*)     and      not(processing-instruction())     and      not(comment())     and      not(*[not(self::br) or @* or * or node()])     and      not(following::node()[not(         (self::text() or self::br or self::p or self::div)        and         normalize-space(translate(., &apos;�&apos;, &apos;&apos;)) = &apos;&apos;        and         not(@*)        and         not(processing-instruction())        and         not(comment())        and         not(*[not(self::br) or @* or * or node()])       )])     ]">
+													<!-- ignore all paragraphs and line-breaks at the end that have nothing but (non-breaking) spaces and line breaks -->
+												</template>
+												<template match="br[parent::div and not(preceding-sibling::node()) and not(following-sibling::node())]">
+													<!-- Chrome generates <div><br/></div>. Renders differently in different browsers. Replace it with a non-breaking space -->
+													<text>�</text>
+												</template>
+											</stylesheet>
+										</tcm:FilterXSLT>
+									</xsd:appinfo>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ArticleBody" minOccurs="1" maxOccurs="1" type="tcmi:XHTML">
+								<xsd:annotation>
+									<xsd:appinfo>
+										<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+										<tcm:Size xmlns:tcm="http://www.tridion.com/ContentManager/5.0">10</tcm:Size>
+										<tcm:FilterXSLT xmlns:tcm="http://www.tridion.com/ContentManager/5.0">
+											<stylesheet xmlns="http://www.w3.org/1999/XSL/Transform" version="1.0">
+												<output omit-xml-declaration="yes" method="xml" cdata-section-elements="script"></output>
+												<template match="/ | node() | @*">
+													<copy>
+														<apply-templates select="node() | @*"></apply-templates>
+													</copy>
+												</template>
+												<template match="*[      (self::br or self::p or self::div)     and      normalize-space(translate(., &apos;�&apos;, &apos;&apos;)) = &apos;&apos;     and      not(@*)     and      not(processing-instruction())     and      not(comment())     and      not(*[not(self::br) or @* or * or node()])     and      not(following::node()[not(         (self::text() or self::br or self::p or self::div)        and         normalize-space(translate(., &apos;�&apos;, &apos;&apos;)) = &apos;&apos;        and         not(@*)        and         not(processing-instruction())        and         not(comment())        and         not(*[not(self::br) or @* or * or node()])       )])     ]">
+													<!-- ignore all paragraphs and line-breaks at the end that have nothing but (non-breaking) spaces and line breaks -->
+												</template>
+												<template match="br[parent::div and not(preceding-sibling::node()) and not(following-sibling::node())]">
+													<!-- Chrome generates <div><br/></div>. Renders differently in different browsers. Replace it with a non-breaking space -->
+													<text>�</text>
+												</template>
+												<template name="FormattingFeatures">
+													<FormattingFeatures xmlns="http://www.tridion.com/ContentManager/5.2/FormatArea" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+														<Doctype>Strict</Doctype>
+														<AccessibilityLevel>0</AccessibilityLevel>
+														<DisallowedActions>
+															<Underline></Underline>
+															<Strikethrough></Strikethrough>
+															<Subscript></Subscript>
+															<Superscript></Superscript>
+															<AlignLeft></AlignLeft>
+															<Center></Center>
+															<AlignRight></AlignRight>
+															<Font></Font>
+															<Background></Background>
+															<TableHeight></TableHeight>
+															<TableHAlign></TableHAlign>
+															<TableBackground></TableBackground>
+															<TableCellWidth></TableCellWidth>
+															<TableCellHeight></TableCellHeight>
+															<TableCellBackground></TableCellBackground>
+														</DisallowedActions>
+														<DisallowedStyles></DisallowedStyles>
+													</FormattingFeatures>
+												</template>
+											</stylesheet>
+										</tcm:FilterXSLT>
+									</xsd:appinfo>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ArticleUrl" minOccurs="1" maxOccurs="1" type="tcmi:SimpleLink">
+								<xsd:annotation>
+									<xsd:appinfo>
+										<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+										<tcm:linktype xmlns:tcm="http://www.tridion.com/ContentManager/5.0">ExternalLink</tcm:linktype>
+									</xsd:appinfo>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Date" minOccurs="0" maxOccurs="1" type="xsd:dateTime">
+								<xsd:annotation>
+									<xsd:appinfo>
+										<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+									</xsd:appinfo>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Author" minOccurs="0" maxOccurs="unbounded" type="tcmi:SimpleLink">
+								<xsd:annotation>
+									<xsd:appinfo>
+										<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+										<tcm:linktype xmlns:tcm="http://www.tridion.com/ContentManager/5.0">ComponentLink</tcm:linktype>
+										<tcm:AllowMultimediaLinks xmlns:tcm="http://www.tridion.com/ContentManager/5.0">false</tcm:AllowMultimediaLinks>
+										<tcm:AllowedTargetSchemas xmlns:tcm="http://www.tridion.com/ContentManager/5.0">
+											
+										</tcm:AllowedTargetSchemas>
+									</xsd:appinfo>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="Links" minOccurs="0" maxOccurs="unbounded" type="Links">
+								<xsd:annotation>
+									<xsd:appinfo>
+										<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+										<tcm:EmbeddedSchema xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:tcm="http://www.tridion.com/ContentManager/5.0" xlink:href="tcm:25-2681-8" xlink:title="EmbeddedLinksSchema"></tcm:EmbeddedSchema>
+									</xsd:appinfo>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ContentCategory" minOccurs="0" maxOccurs="unbounded" type="category:ContentCategory">
+								<xsd:annotation>
+									<xsd:appinfo>
+										<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+										<tcm:Size xmlns:tcm="http://www.tridion.com/ContentManager/5.0">1</tcm:Size>
+										<tcm:listtype xmlns:tcm="http://www.tridion.com/ContentManager/5.0">checkbox</tcm:listtype>
+									</xsd:appinfo>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="ArticleSource" minOccurs="0" maxOccurs="1" type="tcmi:SimpleLink">
+								<xsd:annotation>
+									<xsd:appinfo>
+										<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+										<tcm:linktype xmlns:tcm="http://www.tridion.com/ContentManager/5.0">ComponentLink</tcm:linktype>
+										<tcm:AllowMultimediaLinks xmlns:tcm="http://www.tridion.com/ContentManager/5.0">false</tcm:AllowMultimediaLinks>
+										<tcm:AllowedTargetSchemas xmlns:tcm="http://www.tridion.com/ContentManager/5.0">
+											<tcm:TargetSchema xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="tcm:25-3474-8" xlink:title="Information Source"></tcm:TargetSchema>
+										</tcm:AllowedTargetSchemas>
+									</xsd:appinfo>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="StackOverflowQuestionId" minOccurs="0" maxOccurs="1" type="xsd:normalizedString">
+								<xsd:annotation>
+									<xsd:appinfo>
+										<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+									</xsd:appinfo>
+								</xsd:annotation>
+							</xsd:element>
+							<xsd:element name="StackOverflowQuestionRank" minOccurs="0" maxOccurs="1" type="xsd:normalizedString">
+								<xsd:annotation>
+									<xsd:appinfo>
+										<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+									</xsd:appinfo>
+								</xsd:annotation>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+			</xsd:schema>

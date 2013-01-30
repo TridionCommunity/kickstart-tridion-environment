@@ -1,0 +1,4 @@
+<Content xmlns="http://www.sdtridionworld.com/Content/Source" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sdtridionworld.com/Content/Source http://localhost/webdav/020%20Content/Building%20Blocks/System/Schemas/Information%20Source.xsd">
+	<RssFeedUrl xlink:type="simple" xlink:href="http://www.curlette.com/?feed=rss2" xmlns:xlink="http://www.w3.org/1999/xlink"/>
+	<WebsiteUrl>http://www.curlette.com</WebsiteUrl>
+</Content>
