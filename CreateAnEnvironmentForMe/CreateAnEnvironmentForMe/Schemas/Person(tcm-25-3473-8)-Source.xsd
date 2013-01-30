@@ -1,0 +1,81 @@
+<xsd:schema xmlns="http://www.sdltridionworld.com/Content/Person" xmlns:tcmi="http://www.tridion.com/ContentManager/5.0/Instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.sdltridionworld.com/Content/Person">
+	<xsd:import namespace="http://www.tridion.com/ContentManager/5.0/Instance"></xsd:import>
+	<xsd:annotation>
+		<xsd:appinfo>
+			<tcm:Labels xmlns:tcm="http://www.tridion.com/ContentManager/5.0">
+				<tcm:Label ElementName="PersonName" Metadata="false">Person Name</tcm:Label>
+				<tcm:Label ElementName="PersonOrganization" Metadata="false">Person's Organization(s)</tcm:Label>
+				<tcm:Label ElementName="PersonTwitterHandle" Metadata="false">Person's Twitter Handle</tcm:Label>
+				<tcm:Label ElementName="PersonLinkedInProfile" Metadata="false">Person's LinkedIn Profile</tcm:Label>
+				<tcm:Label ElementName="PersonPhoto" Metadata="false">Person's Photo</tcm:Label>
+				<tcm:Label ElementName="AlternateNames" Metadata="false">Alternate Names</tcm:Label>
+				<tcm:Label ElementName="StackOverflowId" Metadata="false">StackOverflowId</tcm:Label>
+			</tcm:Labels>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:element name="Content">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="PersonName" minOccurs="1" maxOccurs="1" type="xsd:normalizedString">
+					<xsd:annotation>
+						<xsd:appinfo>
+							<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+						</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PersonOrganization" minOccurs="0" maxOccurs="unbounded" type="tcmi:SimpleLink">
+					<xsd:annotation>
+						<xsd:appinfo>
+							<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+							<tcm:linktype xmlns:tcm="http://www.tridion.com/ContentManager/5.0">ComponentLink</tcm:linktype>
+							<tcm:AllowMultimediaLinks xmlns:tcm="http://www.tridion.com/ContentManager/5.0">false</tcm:AllowMultimediaLinks>
+							<tcm:AllowedTargetSchemas xmlns:tcm="http://www.tridion.com/ContentManager/5.0">
+								<tcm:TargetSchema xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="tcm:25-3472-8"></tcm:TargetSchema>
+							</tcm:AllowedTargetSchemas>
+						</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PersonTwitterHandle" minOccurs="0" maxOccurs="1" type="xsd:normalizedString">
+					<xsd:annotation>
+						<xsd:appinfo>
+							<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+						</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PersonLinkedInProfile" minOccurs="0" maxOccurs="1" type="tcmi:SimpleLink">
+					<xsd:annotation>
+						<xsd:appinfo>
+							<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+							<tcm:linktype xmlns:tcm="http://www.tridion.com/ContentManager/5.0">ExternalLink</tcm:linktype>
+						</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="PersonPhoto" minOccurs="0" maxOccurs="1" type="tcmi:SimpleLink">
+					<xsd:annotation>
+						<xsd:appinfo>
+							<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+							<tcm:linktype xmlns:tcm="http://www.tridion.com/ContentManager/5.0">MultimediaLink</tcm:linktype>
+							<tcm:AllowedTargetSchemas xmlns:tcm="http://www.tridion.com/ContentManager/5.0">
+								<tcm:TargetSchema xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="tcm:25-2678-8"></tcm:TargetSchema>
+							</tcm:AllowedTargetSchemas>
+						</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="AlternateNames" minOccurs="0" maxOccurs="unbounded" type="xsd:normalizedString">
+					<xsd:annotation>
+						<xsd:appinfo>
+							<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+						</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="StackOverflowId" minOccurs="0" maxOccurs="1" type="xsd:normalizedString">
+					<xsd:annotation>
+						<xsd:appinfo>
+							<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+						</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

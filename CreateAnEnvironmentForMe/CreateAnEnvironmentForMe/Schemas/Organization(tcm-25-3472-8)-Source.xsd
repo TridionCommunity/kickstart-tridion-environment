@@ -1,0 +1,44 @@
+<xsd:schema xmlns="http://www.sdltridionworld.com/Content/Organization" xmlns:tcmi="http://www.tridion.com/ContentManager/5.0/Instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.sdltridionworld.com/Content/Organization">
+	<xsd:import namespace="http://www.tridion.com/ContentManager/5.0/Instance"></xsd:import>
+	<xsd:annotation>
+		<xsd:appinfo>
+			<tcm:Labels xmlns:tcm="http://www.tridion.com/ContentManager/5.0">
+				<tcm:Label ElementName="OrganizationName" Metadata="false">Organization Name</tcm:Label>
+				<tcm:Label ElementName="OrganizationWebSite" Metadata="false">Organization WebSite</tcm:Label>
+				<tcm:Label ElementName="OrganizationLogo" Metadata="false">Organization Logo</tcm:Label>
+			</tcm:Labels>
+		</xsd:appinfo>
+	</xsd:annotation>
+	<xsd:element name="Content">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="OrganizationName" minOccurs="1" maxOccurs="1" type="xsd:normalizedString">
+					<xsd:annotation>
+						<xsd:appinfo>
+							<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+						</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="OrganizationWebSite" minOccurs="0" maxOccurs="1" type="tcmi:SimpleLink">
+					<xsd:annotation>
+						<xsd:appinfo>
+							<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+							<tcm:linktype xmlns:tcm="http://www.tridion.com/ContentManager/5.0">ExternalLink</tcm:linktype>
+						</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="OrganizationLogo" minOccurs="0" maxOccurs="1" type="tcmi:SimpleLink">
+					<xsd:annotation>
+						<xsd:appinfo>
+							<tcm:ExtensionXml xmlns:tcm="http://www.tridion.com/ContentManager/5.0"></tcm:ExtensionXml>
+							<tcm:linktype xmlns:tcm="http://www.tridion.com/ContentManager/5.0">MultimediaLink</tcm:linktype>
+							<tcm:AllowedTargetSchemas xmlns:tcm="http://www.tridion.com/ContentManager/5.0">
+								<tcm:TargetSchema xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="tcm:25-2678-8"></tcm:TargetSchema>
+							</tcm:AllowedTargetSchemas>
+						</xsd:appinfo>
+					</xsd:annotation>
+				</xsd:element>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
