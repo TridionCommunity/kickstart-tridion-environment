@@ -1,12 +1,11 @@
-﻿using System;
+﻿using ImportContentFromRss.Content;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Xml;
 using System.Xml.Linq;
-using ImportContentFromRss.Content;
 using Tridion.ContentManager;
 using Tridion.ContentManager.CoreService.Client;
 using ItemType = Tridion.ContentManager.CoreService.Client.ItemType;
@@ -290,10 +289,10 @@ namespace ImportContentFromRss
                 foldername = article.Date.Month.ToString(CultureInfo.InvariantCulture);
             foldername += " " + article.Date.ToString("MMMM");
             PageData page = (PageData)_client.Read(GetPage(sg, foldername), _readOptions);
-            if (!page.IsEditable.GetValueOrDefault())
-            {
-                page = (PageData)_client.CheckOut(page.Id, true, _readOptions);
-            }
+            //if (!page.IsEditable.GetValueOrDefault())
+            //{
+            //    page = (PageData)_client.CheckOut(page.Id, true, _readOptions);
+            //}
 
             List<ComponentPresentationData> componentPresentations = page.ComponentPresentations.ToList();
             string articleId = GetUriInBlueprintContext(article.Id, ResolveUrl(Constants.WebSitePublication));
@@ -307,8 +306,11 @@ namespace ImportContentFromRss
                 componentPresentations.Add(cp);
                 page.ComponentPresentations = componentPresentations.ToArray();
             }
-            _client.Save(page, null);
-            _client.CheckIn(page.Id, null);
+            page = (PageData)_client.Update(page, _readOptions);
+            // Looks like it's still checked out at the end of this...
+            if (page.IsEditable.HasValue && page.IsEditable == true)
+                _client.CheckIn(GetVersionlessUri(page.Id), null);
+
             watch.Stop();
             Console.WriteLine("Added component presentation in " + watch.ElapsedMilliseconds + " milliseconds");
         }
