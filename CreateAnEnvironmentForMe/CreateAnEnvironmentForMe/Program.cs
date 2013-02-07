@@ -1,4 +1,5 @@
-﻿using System.Security.Principal;
+﻿using System.Linq;
+using System.Security.Principal;
 using System.ServiceModel;
 using ContentClasses;
 using System;
@@ -175,16 +176,7 @@ namespace CreateAnEnvironmentForMe
                 string sourceName = Path.GetFileNameWithoutExtension(sourceFile);
                 Console.WriteLine("Creating information source " + sourceName);
                 // Let's see if the source already exists
-                bool sourceExists = false;
-                foreach (Source source in sources)
-                {
-                    if (source.Title.Equals(sourceName))
-                    {
-                        sourceExists = true;
-                        break;
-                    }
-
-                }
+                bool sourceExists = sources.Any(source => source.Title.Equals(sourceName));
                 if (sourceExists) continue;
                 XDocument sourceContent = XDocument.Parse(File.ReadAllText(sourceFile));
                 XNamespace sourceNs = "http://www.sdtridionworld.com/Content/Source";
