@@ -380,10 +380,11 @@ namespace CreateAnEnvironmentForMe
             string targetName = site.Element("Name").Value;
             string targetTypeId = TcmUri.UriNull;
             string url = string.Empty;
-            if (language == WebsiteHelper.TargetLanguage.Aspnet)
+            if (language == WebsiteHelper.TargetLanguage.Aspnet || language == WebsiteHelper.TargetLanguage.REL)
                 url = "http://localhost:" + site.Element("Port").Value + "/httpupload.aspx";
-            else
+            else if(language == WebsiteHelper.TargetLanguage.Jsp)
                 url = "http://localhost:" + site.Element("Port").Value + "/" + site.Element("ContextRoot").Value + "/httpupload";
+            
 
             TargetTypesFilterData filter = new TargetTypesFilterData();
             //filter.ForRepository.IdRef = Configuration.WebsitePublicationId;

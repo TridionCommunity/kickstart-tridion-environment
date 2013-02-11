@@ -49,6 +49,35 @@
     </Storage>
   </Site>
 
+  <Site>
+    <Name>OData Deployer</Name>
+    <Root>c:\inetpub\odata\deployer</Root>
+    <Role>upload</Role>
+    <Port>92</Port>
+    <Language>.NET</Language>
+    <Storage>
+      <Name>TridionOdata</Name>
+      <UserName>TridionBrokerUser</UserName>
+      <Password>tridion</Password>
+      <RootPath>c:\inetpub\odata\binaries</RootPath>
+    </Storage>
+  </Site>
+
+  <Site>
+    <Name>Odata WebService</Name>
+    <Root>c:\inetpub\odata\webservice</Root>
+    <Role>webservice</Role>
+    <Port>88</Port>
+    <Language>.NET</Language>
+    <Storage>
+      <Name>TridionOdata</Name>
+      <UserName>TridionBrokerUser</UserName>
+      <Password>tridion</Password>
+    </Storage>
+  </Site>
+
+
+
   <!--<Site>
     <Name>Tomcat Staging Deployer</Name>
     <Root>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\staging-upload</Root>

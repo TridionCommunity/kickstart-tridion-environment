@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="##VERSION##" xsi:noNamespaceSchemaLocation="schemas/cd_ambient_conf.xsd">
+  <!--
+  <Security>
+    <RequestValidator>com.tridion.webservices.security.validator.OAuth2RequestValidator</RequestValidator>
+    <SharedSecret>sample_passphrase</SharedSecret>
+  </Security>-->
+  <ExcludedPaths>
+    <!--For Java -->
+    <!--<Path>/httpupload</Path>
+        <Path>/access_token</Path>-->
+    <!--For .NET -->
+    <!--<Path>/httpupload.aspx</Path>
+        <Path>/access_token.svc</Path>-->
+  </ExcludedPaths>
+  <Cartridges>
+    <!-- Example cartridge definition -->
+    <!--
+		<Cartridge File="cd_ambient_cartridge_conf.xml"/>
+		
+    <Cartridge File="cd_webservice_preview_cartridge.xml"/>
+    -->
+  </Cartridges>
+  <!-- Cookies settings -->
+  <!-- 
+    <Cookies>
+        <CookieClaim DefaultValue="true" Name="CookieClaim"/>
+        <Cookie Type="Tracking" Name="myTrackingCookie" Path="/"/>
+        <Cookie Type="Session" Name="mySessionCookie" Path="/"/>
+        <Cookie Type="ADF" Name="TAFContext" />
+    </Cookies>
+  -->
+</Configuration>

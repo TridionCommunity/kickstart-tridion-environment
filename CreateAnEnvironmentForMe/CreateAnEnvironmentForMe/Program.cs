@@ -212,8 +212,10 @@ namespace CreateAnEnvironmentForMe
                 WebsiteHelper.TargetLanguage language;
                 if (site.Element("Language").Value.ToLower().Equals(".net"))
                     language = WebsiteHelper.TargetLanguage.Aspnet;
-                else
+                else if(site.Element("Language").Value.ToLower().Equals("jsp"))
                     language = WebsiteHelper.TargetLanguage.Jsp;
+                else 
+                    language = WebsiteHelper.TargetLanguage.REL;
                 string role = site.Element("Role").Value.ToLower();
                 switch (role.ToLower())
                 {
@@ -226,6 +228,9 @@ namespace CreateAnEnvironmentForMe
                         break;
                     case "preview-webservice":
                         theRole = WebsiteHelper.Role.PreviewWebService;
+                        break;
+                    case "webservice":
+                        theRole = WebsiteHelper.Role.WebService;
                         break;
                 }
 
