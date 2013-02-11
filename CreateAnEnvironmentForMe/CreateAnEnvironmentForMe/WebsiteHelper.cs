@@ -15,14 +15,16 @@ namespace CreateAnEnvironmentForMe
         internal enum TargetLanguage
         {
             Jsp,
-            Aspnet
+            Aspnet,
+            REL
         }
 
         internal enum Role
         {
             Upload,
             PreviewWeb,
-            PreviewWebService
+            PreviewWebService,
+            WebService
         }
 
 
@@ -49,6 +51,9 @@ namespace CreateAnEnvironmentForMe
                 case Role.Upload:
                     theRole = "upload";
                     break;
+                case Role.WebService:
+                    theRole = "webservice";
+                    break;
             }
             switch (language)
             {
@@ -65,7 +70,7 @@ namespace CreateAnEnvironmentForMe
             jdbc += Path.DirectorySeparatorChar + config.Root.Element("Folder").Element("File").Value;
 
             string version = string.Empty;
-            if(Configuration.ServerVersion == ServerVersion.Version7)
+            if (Configuration.ServerVersion == ServerVersion.Version7)
                 version = "7.0.0";
             else if (Configuration.ServerVersion == ServerVersion.Version6)
                 version = "6.1.0";
@@ -186,7 +191,7 @@ namespace CreateAnEnvironmentForMe
                                           Convert.ToString(new TcmUri(Configuration.WebsitePublicationId).ItemId));
             }
 
-            if(Path.GetFileName(target).Equals("cd_ambient_conf.xml"))
+            if (Path.GetFileName(target).Equals("cd_ambient_conf.xml"))
             {
                 if (Configuration.ServerVersion == ServerVersion.Version7)
                     content = content.Replace("##CLAIMSTORE##",
