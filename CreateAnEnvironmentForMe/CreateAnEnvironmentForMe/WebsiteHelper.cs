@@ -270,6 +270,7 @@ namespace CreateAnEnvironmentForMe
                 pool.ManagedPipelineMode = ManagedPipelineMode.Integrated;
                 pool.ProcessModel.UserName = "Network Service";
                 pool.ProcessModel.IdentityType = ProcessModelIdentityType.NetworkService;
+                
                 Site site = iis.Sites.Add(name, root, port);
                 site.Applications[0].VirtualDirectories[0].PhysicalPath = root;
                 site.Applications[0].ApplicationPoolName = name;
