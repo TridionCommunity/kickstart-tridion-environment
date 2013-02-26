@@ -195,6 +195,10 @@ namespace CreateAnEnvironmentForMe
             helper.AddSiteEditToTemplate(templateId);
             helper.AddSiteEditToTemplate(helper.GetDefaultPageTemplate(Configuration.TopPublicationId));
 
+            helper.GetFolder("CSharp Building Blocks",
+                             helper.GetUriInBlueprintContext(Configuration.TemplateFolderId,
+                                                             Configuration.TemplatePublicationId));
+
             // Try to create task definition...
 
             // Setup a deployer
