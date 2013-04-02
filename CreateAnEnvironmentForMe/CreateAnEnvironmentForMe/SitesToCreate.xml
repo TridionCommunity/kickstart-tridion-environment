@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Sites>
-  <Site>
-    <Name>Staging Deployer</Name>
+ <Site>
+    <Name>Staging .NET Deployer</Name>
     <Root>c:\inetpub\staging\deployer</Root>
     <Role>upload</Role>
     <Port>90</Port>
@@ -48,7 +48,6 @@
       </SessionPreview>
     </Storage>
   </Site>
-
   <Site>
     <Name>OData Deployer</Name>
     <Root>c:\inetpub\odata\deployer</Root>
@@ -74,11 +73,9 @@
       <UserName>TridionBrokerUser</UserName>
       <Password>tridion</Password>
     </Storage>
-  </Site>
-
-
-
-  <!--<Site>
+  </Site> 
+<!--
+  <Site>
     <Name>Tomcat Staging Deployer</Name>
     <Root>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\staging-upload</Root>
     <Role>upload</Role>
@@ -95,7 +92,7 @@
   <Site>
     <Name>Tomcat Staging Website</Name>
     <Root>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\staging</Root>
-    <Role>preview</Role>
+    <Role>preview-web</Role>
     <Port>8080</Port>
     <Language>Jsp</Language>
     <Storage>
@@ -110,7 +107,24 @@
       </SessionPreview>
     </Storage>
   </Site>
-    <Site>
+  <Site>
+    <Name>Preview WebService</Name>
+    <Root>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\webservice</Root>
+    <Role>preview-webservice</Role>
+    <Port>8080</Port>
+    <Language>Jsp</Language>
+    <Storage>
+      <Name>TridionSessionPreview</Name>
+      <UserName>TridionBrokerUser</UserName>
+      <Password>tridion</Password>
+      <SessionPreview>
+        <Name>TridionSessionPreview</Name>
+        <UserName>TridionBrokerUser</UserName>
+        <Password>tridion</Password>
+      </SessionPreview>
+    </Storage>
+  </Site>-->
+  <!--<Site>
     <Name>Tomcat Live Deployer</Name>
     <Root>C:\Program Files\Apache Software Foundation\Tomcat 7.0\webapps\live-upload</Root>
     <Role>upload</Role>

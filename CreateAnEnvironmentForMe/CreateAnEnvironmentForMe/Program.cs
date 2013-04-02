@@ -81,10 +81,10 @@ namespace CreateAnEnvironmentForMe
 
             // Create Blueprint
             CoreServiceHelper helper = new CoreServiceHelper(client) { CreateIfNewItem = true };
-            Configuration.TopPublicationId = helper.GetPublication("000 System Parent");
+            Configuration.TopPublicationId = helper.GetPublication("000 Parent Publication");
             helper.CreateOrIgnoreRootStructureGroup("Root", Configuration.TopPublicationId);
             Configuration.SchemaPublicationId = helper.GetPublication("010 Schemas", Configuration.TopPublicationId);
-            Configuration.TemplatePublicationId = helper.GetPublication("020 Design", Configuration.SchemaPublicationId);
+            Configuration.TemplatePublicationId = helper.GetPublication("020 Template Design", Configuration.SchemaPublicationId);
             Configuration.ContentPublicationId = helper.GetPublication("020 Content", Configuration.SchemaPublicationId);
             Configuration.WebsitePublicationId = helper.GetPublication("050 Website EN",
                                                                        Configuration.TemplatePublicationId,
@@ -191,7 +191,7 @@ namespace CreateAnEnvironmentForMe
             }
 
             // Create a component template
-            string templateId = helper.GetComponentTemplateForSchema(Configuration.ArticleSchemaId, "Default Article Template");
+            string templateId = helper.GetComponentTemplateForSchema(Configuration.ArticleSchemaId, "Default Article Template", true);
             helper.AddSiteEditToTemplate(templateId);
             helper.AddSiteEditToTemplate(helper.GetDefaultPageTemplate(Configuration.TopPublicationId));
 

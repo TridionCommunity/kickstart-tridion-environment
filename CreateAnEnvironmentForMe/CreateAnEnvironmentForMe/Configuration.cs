@@ -40,9 +40,9 @@ namespace CreateAnEnvironmentForMe
         public const string EmbeddedLinkSchemaFileName = "EmbeddedLinksSchema(tcm-25-2681-8)-Source.xsd";
 
         public const string UrlEnableInlineEditingForPagesTbb =
-            "/webdav/000%20System%20Parent/Building%20Blocks/Default%20Templates/Enable%20inline%20editing%20for%20Page.tbbcs";
+            "/webdav/000%20Parent%20Publication/Building%20Blocks/Default%20Templates/Enable%20inline%20editing%20for%20Page.tbbcs";
         public const string UrlEnableInlineEditingForContentTbb =
-            "/webdav/000%20System%20Parent/Building%20Blocks/Default%20Templates/Enable%20inline%20editing%20for%20content.tbbcs";
+            "/webdav/000%20Parent%20Publication/Building%20Blocks/Default%20Templates/Enable%20inline%20editing%20for%20content.tbbcs";
 
         public static ServerVersion ServerVersion = ServerVersion.Version7;
     }
