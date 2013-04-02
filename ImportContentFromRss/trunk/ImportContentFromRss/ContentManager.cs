@@ -278,7 +278,7 @@ namespace ImportContentFromRss
             return inContext.ToString();
         }
 
-        public void AddToPage(string sg, Article article)
+        public string AddToPage(string sg, Article article)
         {
             Stopwatch watch = new Stopwatch();
             watch.Start();
@@ -299,10 +299,10 @@ namespace ImportContentFromRss
             string ctId = GetUriInBlueprintContext(ResolveUrl(Constants.ArticleComponentTemplateUrl),
                                                    ResolveUrl(Constants.WebSitePublication));
             ComponentPresentationData cp = new ComponentPresentationData();
-            if(articleId != null && articleId != TcmUri.UriNull)
+            if (articleId != null && articleId != TcmUri.UriNull)
             {
-                cp.Component = new LinkToComponentData {IdRef = articleId};
-                cp.ComponentTemplate = new LinkToComponentTemplateData {IdRef = ctId};
+                cp.Component = new LinkToComponentData { IdRef = articleId };
+                cp.ComponentTemplate = new LinkToComponentTemplateData { IdRef = ctId };
                 componentPresentations.Add(cp);
                 page.ComponentPresentations = componentPresentations.ToArray();
             }
@@ -313,12 +313,12 @@ namespace ImportContentFromRss
 
             watch.Stop();
             Console.WriteLine("Added component presentation in " + watch.ElapsedMilliseconds + " milliseconds");
+            return page.Id;
         }
 
         public string GetPage(string sg, string pageTitle)
         {
-            OrganizationalItemItemsFilterData filter = new OrganizationalItemItemsFilterData
-                                                           {ItemTypes = new[] {ItemType.Page}};
+            OrganizationalItemItemsFilterData filter = new OrganizationalItemItemsFilterData { ItemTypes = new[] { ItemType.Page } };
             foreach (XElement node in _client.GetListXml(sg, filter).Nodes())
             {
                 if (node.Attribute("Title").Value.Equals(pageTitle))
@@ -339,5 +339,22 @@ namespace ImportContentFromRss
             uri = new TcmUri(uri.ItemId, uri.ItemType, uri.PublicationId);
             return uri.ToString();
         }
+
+        public void Publish(string[] itemIds, string targetId)
+        {
+            RenderInstructionData renderInstruction = new RenderInstructionData();
+            ResolveInstructionData resolveInstruction = new ResolveInstructionData();
+
+            PublishInstructionData publishInstruction = new PublishInstructionData
+                                                            {
+                                                                DeployAt = DateTime.Now,
+                                                                MaximumNumberOfRenderFailures = 0,
+                                                                RenderInstruction = renderInstruction,
+                                                                ResolveInstruction = resolveInstruction,
+                                                                StartAt = DateTime.Now
+                                                            };
+            _client.PublishAsync(itemIds, publishInstruction, new[] { targetId }, PublishPriority.Normal, null);
+        }
+
     }
 }

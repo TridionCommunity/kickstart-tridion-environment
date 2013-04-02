@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImportContentFromRss.Content;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -6,7 +7,6 @@ using System.Net;
 using System.ServiceModel.Syndication;
 using System.Xml;
 using System.Xml.Linq;
-using ImportContentFromRss.Content;
 using Tridion.ContentManager;
 using Tridion.ContentManager.CoreService.Client;
 
@@ -92,8 +92,8 @@ namespace ImportContentFromRss
                                         cm.FindPersonByNameOrAlternate(feedXml.SelectSingleNode(xpath, nm).InnerText);
                                     if (author == null)
                                     {
-                                        author = new Person(client);
-                                        author.Name = feedXml.SelectSingleNode(xpath, nm).InnerText;
+                                        author = new Person(client)
+                                                     {Name = feedXml.SelectSingleNode(xpath, nm).InnerText};
                                         author.Save();
                                         author =
                                             cm.FindPersonByNameOrAlternate(
@@ -256,7 +256,7 @@ namespace ImportContentFromRss
                     addedContent.Add(source, newArticles);
                 }
             }
-
+            List<string> idsToPublish = new List<string>();
             if (addedContent.Count > 0)
             {
                 Console.WriteLine("============================================================");
@@ -268,13 +268,17 @@ namespace ImportContentFromRss
                     foreach (Article article in addedContent[source])
                     {
                         string yearSg = cm.GetStructureGroup(article.Date.Year.ToString(CultureInfo.InvariantCulture), sg);
-                        cm.AddToPage(yearSg, article);
+                        string pageId = cm.AddToPage(yearSg, article);
+                        if(!idsToPublish.Contains(pageId))idsToPublish.Add(pageId);
                         Console.WriteLine(article.Title + ", " + article.Authors[0].Name);
                     }
                     Console.WriteLine("-------");
                 }
                 Console.WriteLine("============================================================");
             }
+
+            // Publishing
+            //cm.Publish(idsToPublish.ToArray(), "tcm:0-2-65537");
 
             
             Console.WriteLine("Finished, press any key to exit");
