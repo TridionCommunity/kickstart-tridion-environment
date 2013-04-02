@@ -43,7 +43,7 @@ namespace CreateAnEnvironmentForMe
                 // New Publication
                 PublicationData newPublication =
                     //(PublicationData)_client.GetDefaultData(ItemType.Publication, null, _readOptions);
-                    (PublicationData) _client.GetDefaultData(ItemType.Publication, null);
+                    (PublicationData)_client.GetDefaultData(ItemType.Publication, null);
                 newPublication.Title = publicationTitle;
                 newPublication.Key = publicationTitle;
 
@@ -113,8 +113,8 @@ namespace CreateAnEnvironmentForMe
             if (folderId.Equals(TcmUri.UriNull) && CreateIfNewItem)
             {
                 // New folder
-                FolderData folder = (FolderData) _client.GetDefaultData(ItemType.Folder, parentFolderId);
-                    //(FolderData)_client.GetDefaultData(ItemType.Folder, parentFolderId, _readOptions);
+                FolderData folder = (FolderData)_client.GetDefaultData(ItemType.Folder, parentFolderId);
+                //(FolderData)_client.GetDefaultData(ItemType.Folder, parentFolderId, _readOptions);
                 folder.Title = folderTitle;
                 folder = (FolderData)_client.Save(folder, _readOptions);
                 folderId = folder.Id;
@@ -242,7 +242,7 @@ namespace CreateAnEnvironmentForMe
             return source;
         }
 
-        internal string GetComponentTemplateForSchema(string schemaId, string componentTemplateTitle)
+        internal string GetComponentTemplateForSchema(string schemaId, string componentTemplateTitle, bool dynamic = false)
         {
             string container = GetUriInBlueprintContext(Configuration.TemplateFolderId,
                                                         Configuration.TemplatePublicationId);
@@ -258,6 +258,7 @@ namespace CreateAnEnvironmentForMe
             List<LinkToSchemaData> schemaLinks = new List<LinkToSchemaData>();
             schemaLinks.Add(new LinkToSchemaData { IdRef = GetUriInBlueprintContext(schemaId, Configuration.TemplatePublicationId) });
             ct.RelatedSchemas = schemaLinks.ToArray();
+            ct.IsRepositoryPublishable = dynamic;
             ct = (ComponentTemplateData)_client.Save(ct, _readOptions);
             _client.CheckIn(ct.Id, null);
             return ct.Id;
@@ -274,7 +275,7 @@ namespace CreateAnEnvironmentForMe
             TemplateBuildingBlockData tbb;
 
             // If this is Tridion 6.1 there won't be a building block for SiteEdit yet
-            if(Configuration.ServerVersion == ServerVersion.Version6)
+            if (Configuration.ServerVersion == ServerVersion.Version6)
             {
                 if (!_client.IsExistingObject(Configuration.UrlEnableInlineEditingForContentTbb))
                 {
@@ -284,7 +285,7 @@ namespace CreateAnEnvironmentForMe
                     {
                         string defaultTbbFolder = null;
                         OrganizationalItemItemsFilterData filter = new OrganizationalItemItemsFilterData();
-                        filter.ItemTypes = new[] {ItemType.Folder};
+                        filter.ItemTypes = new[] { ItemType.Folder };
                         foreach (
                             XElement node in
                                 _client.GetListXml(
@@ -339,20 +340,20 @@ namespace CreateAnEnvironmentForMe
 
             foreach (XElement node in content.Root.Nodes())
             {
-                if (node.Element(modularTemplate+"Template").Attribute(xlink+"title").Value.Equals("Default Finish Actions"))
+                if (node.Element(modularTemplate + "Template").Attribute(xlink + "title").Value.Equals("Default Finish Actions"))
                 {
                     dfa = node;
                     break;
                 }
             }
-            if(dfa != null)
+            if (dfa != null)
             {
                 // Must create Element and insert before
                 //  <TemplateInvocation><Template xlink:href="tcm:3-32-2048" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:title="Default Finish Actions" /></TemplateInvocation>
 
                 string fakeSe =
                     "<TemplateInvocation xmlns=\"http://www.tridion.com/ContentManager/5.3/CompoundTemplate\"><Template xlink:href=\"##TBBID##\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:title=\"##TBBTITLE##\" /></TemplateInvocation>";
-                if(template is PageTemplateData)
+                if (template is PageTemplateData)
                 {
                     fakeSe = "<TemplateInvocation xmlns=\"http://www.tridion.com/ContentManager/5.3/CompoundTemplate\"><Template xlink:href=\"##TBBID##\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xlink:title=\"##TBBTITLE##\"/><TemplateParameters><Parameters xmlns=\"##PARAMETERSCHEMANAMESPACE##\"><SiteEditURL>http://localhost/WebUI/Editors/SiteEdit/</SiteEditURL></Parameters></TemplateParameters></TemplateInvocation>";
                     string schemaId = tbb.ParameterSchema.IdRef;
@@ -382,9 +383,9 @@ namespace CreateAnEnvironmentForMe
             string url = string.Empty;
             if (language == WebsiteHelper.TargetLanguage.Aspnet || language == WebsiteHelper.TargetLanguage.REL)
                 url = "http://localhost:" + site.Element("Port").Value + "/httpupload.aspx";
-            else if(language == WebsiteHelper.TargetLanguage.Jsp)
+            else if (language == WebsiteHelper.TargetLanguage.Jsp)
                 url = "http://localhost:" + site.Element("Port").Value + "/" + site.Element("ContextRoot").Value + "/httpupload";
-            
+
 
             TargetTypesFilterData filter = new TargetTypesFilterData();
             //filter.ForRepository.IdRef = Configuration.WebsitePublicationId;
@@ -425,8 +426,8 @@ namespace CreateAnEnvironmentForMe
                 pt.Publications = new[] { new LinkToPublicationData { IdRef = Configuration.WebsitePublicationId } };
                 pt.TargetTypes = new[] { new LinkToTargetTypeData { IdRef = targetTypeId } };
 
-                SchemaData protocolSchema = (SchemaData) _client.Read("/webdav//HTTPS.xsd", _readOptions);
-                
+                SchemaData protocolSchema = (SchemaData)_client.Read("/webdav//HTTPS.xsd", _readOptions);
+
                 //_client.GetSystemWideListXml()
 
                 TargetDestinationData destination = new TargetDestinationData
@@ -434,7 +435,7 @@ namespace CreateAnEnvironmentForMe
                                                             ProtocolSchema = new LinkToSchemaData { IdRef = protocolSchema.Id },
                                                             Title = targetName,
                                                             ProtocolData =
-                                                                "<HTTPS xmlns=\""+ protocolSchema.NamespaceUri + "\"><UserName>notused</UserName><Password>notused</Password><URL>" +
+                                                                "<HTTPS xmlns=\"" + protocolSchema.NamespaceUri + "\"><UserName>notused</UserName><Password>notused</Password><URL>" +
                                                                 url + "</URL></HTTPS>"
                                                         };
                 pt.Destinations = new[] { destination };
