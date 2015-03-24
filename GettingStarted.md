@@ -1,0 +1,19 @@
+# What you need #
+
+This tool is currently setup to work with both Tridion 2011 and Tridion 2013 (not yet released).
+
+
+# Details #
+
+Start by creating a Tridion machine. Install your content manager.
+Open the solution "CreateAnEnvironmentForMe" and:
+  * Modify WebsiteFileList.xml and make sure it points to the correct pre-built webapps as provided by Tridion.
+  * Modify SitesToCreate.xml to fit your needs. Please be aware that at this point in time (January 14) Java sites have not been tested
+
+Execute CreateAnEnvironmentForMe
+
+This will create a basic blueprint, some schemas and the sites you defined in SitesToCreate.xml. If you have a site with the role "upload" then this tool will also create a Target Type & Publication Target for this site.
+
+Execute ImportContentFromRss
+
+This will connect to a few RSS feed sources and import content, as well as create some pages for it. The first time that it loads it may take a while...
